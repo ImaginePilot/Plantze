@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
+    implementation("androidx.recyclerview:recyclerview")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
