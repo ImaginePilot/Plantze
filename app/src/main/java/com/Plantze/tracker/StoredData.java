@@ -25,7 +25,7 @@ public class StoredData {
     public Map<String,List<List<String>>> s_data=new HashMap<>();
     public List<AbstractActivities> activities=new ArrayList<>();
     public StoredData(String uid){
-        FirebaseApp.initializeApp();
+        //FirebaseApp.initializeApp();
         this.storage = FirebaseStorage.getInstance();
         this.global_db=storage.getReference(uid);
     }
