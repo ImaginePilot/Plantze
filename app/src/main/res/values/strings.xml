@@ -9,11 +9,50 @@
     <string name="scroller">Scroller</string>
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
-
+    <string-array name="type_options">
+        <item>Transportation</item>
+        <item>Food</item>
+        <item>Shopping</item>
+    </string-array>
+    <string-array name="activity_type">
+        <item>Transportation</item>
+        <item>Food</item>
+        <item>Shopping</item>
+    </string-array>
+    <string-array name="impact_options">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+    <string-array name="meal_type">
+        <item>Beef</item>
+        <item>Pork</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+    </string-array>
     <string-array name="categories_array">
         <item>Books</item>
         <item>Movies</item>
     </string-array>
+    <string-array name="vehicle_type">
+        <item>Electric</item>
+        <item>Diesel</item>
+        <item>Hybrid</item>
+        <item>Gasoline</item>
+        <item>Other</item>
+    </string-array>
 
+    <string-array name="publicTrans_Type">
+        <item>car</item>
+        <item>plane</item>
+        <item>public transport</item>
+        <item>cycling or walking</item>
+    </string-array>
+    <string-array name="electronic_types">
+        <item>Electronic Devices</item>
+        <item>Kitchen Appliances</item>
+        <item>Laundry Appliances</item>
+        <item>Other</item>
+    </string-array>
 
 </resources>
