@@ -46,7 +46,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_activities"
-        android:layout_width="335dp"
+        android:layout_width="match_parent"
         android:layout_height="406dp"
         android:layout_below="@id/titleTextView"
         android:layout_centerHorizontal="true"
