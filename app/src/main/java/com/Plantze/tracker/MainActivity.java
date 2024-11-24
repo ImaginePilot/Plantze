@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements MainAddActivityAd
         loadData();
 
         // 4. Start background tasks
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_activities);
+
         setContentView(R.layout.activity_eco_tracker);
         startBackgroundTasks();
         MainAddActivityAdapter mainAddActivityAdapter = new MainAddActivityAdapter(this);

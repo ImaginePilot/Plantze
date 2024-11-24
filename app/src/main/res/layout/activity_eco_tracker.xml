@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="@color/teal_700"
+        android:background="@color/white"
         android:text="Eco Tracker"
         android:textAlignment="center"
         android:textSize="36sp"
@@ -37,52 +37,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/titleTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="20dp"
         android:text="Total Emissions: 0 kg CO2e"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_view_activities"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_activities"
-        android:layout_width="match_parent"
-        android:layout_height="406dp"
-        android:layout_below="@id/titleTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:layout_marginBottom="20dp"
-        android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/footerTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_activity" />
+        app:layout_constraintTop_toBottomOf="@+id/calendar" />
 
-    <TextView
-        android:id="@+id/footerTextView"
-        android:layout_width="426dp"
-        android:layout_height="91dp"
-        android:background="@color/teal_700"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <include
+        android:id="@+id/include"
+        layout="@layout/item_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="12dp"
-        android:clickable="true"
-        android:src="@drawable/action_foreground"
-        app:layout_constraintBottom_toTopOf="@+id/footerTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="@id/textView2" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewIndividualActivities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        tools:listitem="@layout/item_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
