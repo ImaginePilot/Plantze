@@ -13,9 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 public class Model {
-
-    int signIn ;
-
+    MainActivityPresenter Presenter;
 
     public void SendForgotPasswordEmail(String email){
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -29,9 +27,9 @@ public class Model {
                     }
                 });
     }
-    public int SignIn(String email, String Password) {
+    public void SignIn(String email, String Password) {
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
-       // FirebaseAuth.getInstance().signOut();
         auth.signInWithEmailAndPassword(email, Password)
                 .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
@@ -40,31 +38,26 @@ public class Model {
                         if (task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
                             if(user.isEmailVerified())
-                                signIn = 1;
+                                Presenter.loginSucessful(email);
                             else
-                                signIn = 2;
+                                Presenter.EmailNotVerified();
 
                         }
                         else {
-                            signIn = -1;
+                            Presenter.loginNotSucessful();
 
 
                         }
                     }
                 });
-        int TemSignIn = signIn;
-        signIn = 0;
-
-        return TemSignIn;
 
     }
 
 
     public void signup (String email,String Password)
     {
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, Password)
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(email, Password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                 {
                     @Override
@@ -74,7 +67,7 @@ public class Model {
 
                         if (task.isSuccessful())
                         {
-                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
@@ -86,6 +79,9 @@ public class Model {
                         }
                     }
                 });
+    }
+    void PS(MainActivityPresenter P){
+        Presenter = P;
     }
 
 }

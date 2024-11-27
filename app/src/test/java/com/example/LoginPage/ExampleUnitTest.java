@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
     @Mock
-    Model model;
+    Model model = new Model();
     @Mock
     Login login;
     @Mock
@@ -69,6 +69,14 @@ public class ExampleUnitTest {
         verify(login).DisplayMessage("Feild or Feilds Cannot be empty");
     }
     @Test
+    public void testloginP(){
+        MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
+        when(login.getEmail()).thenReturn("rohitmutyala920@gmail.com");
+        when(login.getPassword()).thenReturn("ABCD@1");
+        presenter.login();
+        verify(model).SignIn("rohitmutyala920@gmail.com","ABCD@1");
+    }
+    @Test
     public void testlogin1(){
         MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
         when(login.getEmail()).thenReturn("rohitmutyala920@gmail.com");
@@ -85,31 +93,21 @@ public class ExampleUnitTest {
         verify(login).DisplayMessage("Feild or Feilds Cannot be empty");
     }
     @Test
-    public void testlogin3(){
+    public void testlloginSucessful(){
         MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
-        when(login.getEmail()).thenReturn("rohitmutyala920@gmail.com");
-        when(model.SignIn("rohitmutyala920@gmail.com","ABCD@1")).thenReturn(-1);
-        when(login.getPassword()).thenReturn("ABCD@1");
-        presenter.login();
-        verify(login).DisplayMessage("Sign in not sucessful");
+        presenter.loginSucessful("rohitmutyala920@gmail.com");
+        verify(login).NextActivity("rohitmutyala920@gmail.com");
     }
     @Test
-    public void testlogin4(){
+    public void testloginNotSucessful(){
         MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
-        when(login.getEmail()).thenReturn("rohitmutyala920@gmail.com");
-        when(model.SignIn("rohitmutyala920@gmail.com","ABCD@1")).thenReturn(1);
-        when(login.getPassword()).thenReturn("ABCD@1");
-        presenter.login();
-        verify(login).NextActivity("rohitmutyala920@gmail.com");
+        presenter.loginNotSucessful();
+        verify(login).DisplayMessage("Sign in not sucessful");
     }
     @Test
     public void testlogin5(){
         MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
-        when(login.getEmail()).thenReturn("rohitmutyala920@gmail.com");
-        when(model.SignIn("rohitmutyala920@gmail.com","ABCD@1")).thenReturn(2);
-        when(login.getPassword()).thenReturn("ABCD@1");
-        presenter.login();
-        verify(model).SignIn("rohitmutyala920@gmail.com","ABCD@1");
+        presenter.EmailNotVerified();
         verify(login).DisplayMessage("Please verify email");
     }
 

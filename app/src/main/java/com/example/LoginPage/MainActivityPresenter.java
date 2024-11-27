@@ -10,11 +10,15 @@ public class MainActivityPresenter {
     public Registration register;
 
     public Model model;
-    public MainActivityPresenter(Login login, Registration register, Model model){
+    public MainActivityPresenter(Login login, Registration register,Model model){
         this.login = login;
-        this.model = model;
         this.register = register;
+        this.model = model;
+        model.PS(this);
     }
+
+
+
     public void ForgotPassword(){
         String Email = login.getEmail();
         if(Email.isEmpty())
@@ -28,23 +32,14 @@ public class MainActivityPresenter {
 
     }
     public void login() {
-        int signIn ;
         String Email = login.getEmail();
         String Password = login.getPassword();
         if(Email.isEmpty() || Password.isEmpty() ){
             login.DisplayMessage("Feild or Feilds Cannot be empty");
         }
 
-        signIn = model.SignIn(Email,Password);
-        if (signIn == 1) {
-            login.NextActivity(Email);
-        }
-        if (signIn == -1) {
-            login.DisplayMessage("Sign in not sucessful");
-        }
-        if (signIn == 2){
-            login.DisplayMessage("Please verify email");
-        }
+        model.SignIn(Email,Password);
+
 
     }
     public void signup(){
@@ -55,5 +50,14 @@ public class MainActivityPresenter {
             model.signup(Email, Password);
         else
             register.MakeToast("Passwords dont Match");
+    }
+    public void loginSucessful(String Email){
+        login.NextActivity(Email);
+    }
+    public void loginNotSucessful(){
+        login.DisplayMessage("Sign in not sucessful");
+    }
+    public void EmailNotVerified(){
+        login.DisplayMessage("Please verify email");
     }
 }

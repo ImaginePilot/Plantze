@@ -35,7 +35,8 @@ public class Registration extends AppCompatActivity implements MainActivityContr
 
             Email_RP = (android.widget.EditText) findViewById(R.id.Email);
 
-            presenter = new MainActivityPresenter(null,this,new Model());
+            Model model = new Model();
+            presenter = new MainActivityPresenter(null,this,model);
             Password_RP = (android.widget.EditText) findViewById(R.id.Password);
             ConfirmPassword = (android.widget.EditText) findViewById(R.id.ConfirmPassword);
             Register = (android.widget.Button) findViewById(R.id.Register);
