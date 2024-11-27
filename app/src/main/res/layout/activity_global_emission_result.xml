@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.LoginPage.Global_emission_result">
+
+
+    <TextView
+        android:id="@+id/Transportation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_above="@+id/PersonalVehicle"/>
+
+    <TextView
+        android:id="@+id/PersonalVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/PublicTransportation"/>
+
+    <TextView
+        android:id="@+id/PublicTransportation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/Flights"/>
+
+    <TextView
+        android:id="@+id/Flights"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/Food"/>
+
+    <TextView
+        android:id="@+id/Food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_above="@+id/Beef"/>
+
+    <TextView
+        android:id="@+id/Beef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/Pork"/>
+
+    <TextView
+        android:id="@+id/Pork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/Chicken"/>
+
+    <TextView
+        android:id="@+id/Chicken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/Fish"/>
+
+
+    <TextView
+        android:id="@+id/Fish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/LeftOvers"/>
+
+    <TextView
+        android:id="@+id/LeftOvers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_above="@+id/Housing"/>
+
+    <TextView
+        android:id="@+id/Housing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_above="@+id/RenewableEnergy"/>
+
+    <TextView
+        android:id="@+id/RenewableEnergy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/Consumption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/RenewableEnergy"/>
+
+    <TextView
+        android:id="@+id/Clothes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/Consumption"/>
+
+    <TextView
+        android:id="@+id/SecondHandGoods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/Clothes"/>
+
+    <TextView
+        android:id="@+id/Electronics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/SecondHandGoods"/>
+
+    <TextView
+        android:id="@+id/Recycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/Electronics"/>
+    <TextView
+        android:id="@+id/TotalComparision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_below="@+id/Recycle"/>
+
+</RelativeLayout>
