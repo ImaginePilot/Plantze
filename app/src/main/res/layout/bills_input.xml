@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
-        android:background="@color/teal_700"
+        android:background="@color/white"
         android:text="Energy Bills"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -36,7 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:hint="Amount"
+        android:hint="$ Amount"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -57,7 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:hint="Amount"
+        android:hint="$ Amount"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textGas" />
@@ -74,26 +76,45 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextGas" />
 
     <EditText
+        android:id="@+id/editTextWater"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:hint="Amount"
+        android:hint="$ Amount"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <Button
-        android:id="@+id/buttonSaveActivity"
+        android:id="@+id/shoppingPageSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:text="Save"
         android:textAlignment="center"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.718"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/billPageDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="@+id/shoppingPageSaveButton"
+        app:layout_constraintEnd_toStartOf="@+id/shoppingPageSaveButton" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Bills For All Month"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="631dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

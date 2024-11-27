@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".EcoTrackerApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -42,6 +43,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CalendarActivity" android:exported="false" />
+        <activity android:name=".EcoTrackerActivity" android:exported="false" />
+        <activity android:name=".TransportationPageActivity" android:exported="false"/>
+        <activity android:name=".BillPageActivity" android:exported="false"/>
+        <activity android:name=".FoodPageActivity" android:exported="false"/>
+        <activity android:name=".ShoppingPageActivity" android:exported="false"/>
     </application>
 
 </manifest>

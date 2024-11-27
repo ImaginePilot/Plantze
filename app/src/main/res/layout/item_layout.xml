@@ -1,46 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/itemLayoutDelete"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="14dp"
+        android:text="Delete" />
+
+    <TextView
+        android:id="@+id/textViewActivityType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="Activity Type"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textViewAuthor"
-        android:layout_width="0dp"
+        android:id="@+id/textViewSubType"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Author"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="47dp"
+        android:text="Sub Type" />
 
     <TextView
-        android:id="@+id/textViewGenre"
-        android:layout_width="0dp"
+        android:id="@+id/textViewValue"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Genre"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAuthor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_below="@+id/textViewSubType"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="9dp"
+        android:text="Value" />
 
     <TextView
-        android:id="@+id/textViewDescription"
-        android:layout_width="0dp"
+        android:id="@+id/textViewSubSubType"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGenre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@+id/textViewValue"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="9dp"
+        android:text="Sub Sub Type" />
+
+    <Button
+        android:id="@+id/itemLayoutEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="120dp"
+        android:text="Edit" />
+
+</RelativeLayout>
