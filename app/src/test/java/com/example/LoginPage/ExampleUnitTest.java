@@ -100,7 +100,7 @@ public class ExampleUnitTest {
         when(model.SignIn("rohitmutyala920@gmail.com","ABCD@1")).thenReturn(1);
         when(login.getPassword()).thenReturn("ABCD@1");
         presenter.login();
-        verify(login).NextActivity();
+        verify(login).NextActivity("rohitmutyala920@gmail.com");
     }
     @Test
     public void testlogin5(){

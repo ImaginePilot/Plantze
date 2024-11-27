@@ -27,7 +27,7 @@ public class MainActivityPresenter {
         }
 
     }
-    public void login(){
+    public void login() {
         int signIn ;
         String Email = login.getEmail();
         String Password = login.getPassword();
@@ -37,7 +37,7 @@ public class MainActivityPresenter {
 
         signIn = model.SignIn(Email,Password);
         if (signIn == 1) {
-            login.NextActivity();
+            login.NextActivity(Email);
         }
         if (signIn == -1) {
             login.DisplayMessage("Sign in not sucessful");

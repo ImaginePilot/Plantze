@@ -46,6 +46,9 @@ public class GetLocation extends AppCompatActivity {
             CountryList = (android.widget.Spinner)findViewById(R.id.spinner);
             Next = (android.widget.Button)findViewById(R.id.gc);
 
+            String Email = getIntent().getStringExtra("Email");
+            Data.Email = getEmailpart(Email);
+
             ArrayList<String> countries_list = new ArrayList<>();
             ArrayList<String> emissions_list = new ArrayList<>();
             AssetManager assetManager = getAssets();
@@ -83,5 +86,8 @@ public class GetLocation extends AppCompatActivity {
 
             return insets;
         });
+    }
+    String getEmailpart(String Email){
+        return Email.substring(0,Email.length()-4);
     }
 }

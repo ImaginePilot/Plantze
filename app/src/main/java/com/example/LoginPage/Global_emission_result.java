@@ -19,6 +19,8 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellAddress;
 
 import com.example.b07demosummer2024.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,6 +92,11 @@ public class Global_emission_result extends AppCompatActivity {
             recycle.setText("Emissions reduction by recycle: "+User_Data.Consumption1);
 
             TotalComparision.setText(User_Data.getMessage());
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference().child("AnnualEmissionsData");
+            FirebaseUserData Data = new FirebaseUserData(User_Data.Transportation,User_Data.Food,User_Data.Housing,User_Data.Consumption);
+            ref.child(User_Data.Email).setValue(Data);
 
 
             return insets;

@@ -3,7 +3,7 @@ package com.example.LoginPage;
 import java.io.Serializable;
 
 public class UserData implements Serializable {
-
+    public String Email;
     public String Location;
     public double Country_Emissions=0;
     public int[] UserAnswers = new int[24];

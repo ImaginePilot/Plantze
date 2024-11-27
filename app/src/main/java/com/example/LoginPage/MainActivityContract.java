@@ -5,7 +5,7 @@ public interface MainActivityContract {
             String getEmail();
             String getPassword();
             void DisplayMessage(String message);
-            void NextActivity();
+            void NextActivity(String Email);
         }
         interface Register{
             String getEmail1();

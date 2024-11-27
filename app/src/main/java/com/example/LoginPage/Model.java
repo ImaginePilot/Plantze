@@ -16,9 +16,9 @@ public class Model {
 
     int signIn ;
 
-    FirebaseAuth auth = FirebaseAuth.getInstance();
-    public void SendForgotPasswordEmail(String email){
 
+    public void SendForgotPasswordEmail(String email){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -30,6 +30,8 @@ public class Model {
                 });
     }
     public int SignIn(String email, String Password) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+       // FirebaseAuth.getInstance().signOut();
         auth.signInWithEmailAndPassword(email, Password)
                 .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
