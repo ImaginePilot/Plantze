@@ -54,5 +54,10 @@
         <item>Laundry Appliances</item>
         <item>Other</item>
     </string-array>
+    <string-array name="shopping_type">
+        <item>clothes</item>
+        <item>electronics</item>
+        <item>other</item>
+    </string-array>
 
 </resources>

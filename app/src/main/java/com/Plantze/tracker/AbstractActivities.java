@@ -12,5 +12,6 @@ public abstract class AbstractActivities {
         this.value=value;
     }
     public abstract double calculateCO2();
+
 }
 

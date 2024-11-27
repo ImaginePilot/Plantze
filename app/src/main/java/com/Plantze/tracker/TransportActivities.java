@@ -45,15 +45,21 @@ public class TransportActivities extends AbstractActivities{
                 switch(vehicle){
                     case "electric":
                         CO2+=value*0.05;
+                        break;
                     case "diesel":
                         CO2+=value*0.27;
+                        break;
                     case "hybrid":
                         CO2+=value*0.16;
+                        break;
                     default:
                         CO2+=value*0.24;
+                        break;
                 }
+                break;
             case "plane":
                 CO2+=calculate_flight_CO2();
+                break;
             case "public_transport":
                 if(value<=1){
                     CO2+=246;
@@ -66,8 +72,10 @@ public class TransportActivities extends AbstractActivities{
                 }else{
                     CO2+=4095;
                 }
+                break;
             case "cycling_or_walking":
-                CO2+=0;
+                CO2+=value;
+                break;
 
         }
         return CO2;

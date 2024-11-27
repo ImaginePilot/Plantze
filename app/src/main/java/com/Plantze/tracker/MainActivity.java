@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements MainAddActivityAdapter.OnItemClickListener{
+public class MainActivity extends AppCompatActivity{
     StoredData stored_data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements MainAddActivityAd
 
         setContentView(R.layout.activity_eco_tracker);
         startBackgroundTasks();
-        MainAddActivityAdapter mainAddActivityAdapter = new MainAddActivityAdapter(this);
+        //MainAddActivityAdapter mainAddActivityAdapter = new MainAddActivityAdapter(this);
         Button selectDateButton=findViewById(R.id.calendar);
         selectDateButton.setOnClickListener(v->{
             Log.d("TAG","pressed SelectDate");
@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity implements MainAddActivityAd
         });
     }
 
-    @Override
-    public void onSelectDateButtonClick(int position){
+    //@Override
+    //public void onSelectDateButtonClick(int position){
 
-    }
+    //}
 
     private void initializeCore() {
         //needs more work on stored data
-        stored_data=new StoredData("123456");
+        EcoTrackerApplication.getInstance(this).setStoredData("123456");
         // Essential initialization
     }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/ActivityType"
+        android:id="@+id/shoppingPageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ActivityType" />
+        app:layout_constraintTop_toBottomOf="@+id/shoppingPageTextView" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextnumber" />
 
     <Button
-        android:id="@+id/buttonSaveActivity"
+        android:id="@+id/shoppingPageSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"

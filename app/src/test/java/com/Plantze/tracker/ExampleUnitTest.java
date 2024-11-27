@@ -20,7 +20,7 @@ public class ExampleUnitTest {
         ShoppingActivities activity=new ShoppingActivities("shoes",20);
         StoredData storedData=new StoredData("000");
         storedData.single_write_to_mapping(activity);
-        storedData.flush_to_file();
+        //storedData.flush_to_file(this);
     }
 
 }
