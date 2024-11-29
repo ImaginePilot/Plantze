@@ -27,6 +27,8 @@ public class EcoTrackerActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        d=EcoTrackerApplication.getInstance(this).getStoredData();
+
         setContentView(R.layout.activity_eco_tracker);
         transportationAdd=findViewById(R.id.transportationActivityAddButton);
         foodAdd=findViewById(R.id.foodActivityAddButton);
@@ -34,7 +36,7 @@ public class EcoTrackerActivity extends AppCompatActivity{
         CO2Text=findViewById(R.id.CO2TextView);
         monthlyBill=findViewById(R.id.monthlyBillButton);
         selectedDate = getIntent().getStringExtra("date");
-        d=EcoTrackerApplication.getInstance(this).getStoredData();
+
         if (selectedDate != null) {
             TextView dateTextView = findViewById(R.id.ecoTrackerDateTextView);
             dateTextView.setText("Date: " + selectedDate);
@@ -83,7 +85,12 @@ public class EcoTrackerActivity extends AppCompatActivity{
 
 
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        d.upload_to_database();
 
+    }
 
 
 }

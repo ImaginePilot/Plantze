@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "690774640434",
-    "project_id": "plantze-group17",
-    "storage_bucket": "plantze-group17.firebasestorage.app"
+    "project_number": "374153592548",
+    "firebase_url": "https://plantze-4207d-default-rtdb.firebaseio.com",
+    "project_id": "plantze-4207d",
+    "storage_bucket": "plantze-4207d.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:690774640434:android:ce1db26e03ec0d9efb392b",
+        "mobilesdk_app_id": "1:374153592548:android:fcd283a9c45776a0fc36f1",
         "android_client_info": {
           "package_name": "com.Plantze.tracker"
         }
@@ -15,7 +16,45 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCv-Ikhwq6GxmVPiRou89XSStAjzestK5s"
+          "current_key": "AIzaSyDcoqZBjk2aBMLrSKkUZiZ67UCNWOaJqJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374153592548:android:4c1a9ed255b18ff6fc36f1",
+        "android_client_info": {
+          "package_name": "com.example.b07demosummer2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcoqZBjk2aBMLrSKkUZiZ67UCNWOaJqJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374153592548:android:7c2311244cab7602fc36f1",
+        "android_client_info": {
+          "package_name": "com.example.ecogaugecode"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcoqZBjk2aBMLrSKkUZiZ67UCNWOaJqJc"
         }
       ],
       "services": {

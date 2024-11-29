@@ -158,7 +158,7 @@ public class TransportationPageActivity extends AppCompatActivity {
             a.month=decode_date.get(1);
             a.day=decode_date.get(2);
             d.single_write_to_mapping(a);
-            d.flush_to_file(this);
+            //d.flush_to_file(this);
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(this,"Instance not created or mapped successfully!",Toast.LENGTH_SHORT).show();

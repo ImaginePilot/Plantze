@@ -12,8 +12,11 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,14 +27,15 @@ import java.util.*;
 
 public class StoredData {
     //Stores Data and add data to FireBase
-    private FirebaseStorage storage;
-    private StorageReference global_db;
+    private DatabaseReference reference;
     public Map<String,List<List<String>>> s_data=new HashMap<>();
     public List<AbstractActivities> activities=new ArrayList<>();
+    private String uid;
     public StoredData(String uid){
         //FirebaseApp.initializeApp();
-        this.storage = FirebaseStorage.getInstance();
-        this.global_db=storage.getReference(uid);
+        this.uid=uid;
+        reference=FirebaseDatabase.getInstance().getReference();
+        download_from_database();
     }
     public StoredData(Map<String,List<List<String>>> l_data){
         s_data=l_data;
@@ -49,6 +53,17 @@ public class StoredData {
         }
         return s_data;
     }
+
+    public void upload_to_database(){
+        //usually this should be tracker
+        reference.child(uid).setValue(s_data).addOnSuccessListener(aVoid -> {
+                    Log.d("Firebase", "Map uploaded successfully");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firebase", "Error uploading map: " + e.getMessage());
+                });;
+    }
+
     public void write_to_mapping(String date,List<List<String>> params){
         //This does not write anything to activity instances
         if(s_data.containsKey(date)){
@@ -111,6 +126,26 @@ public class StoredData {
             e.printStackTrace();
         }
     }
+
+    public void download_from_database() {
+        reference.child(uid).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                GenericTypeIndicator<Map<String, List<List<String>>>> typeIndicator =
+                        new GenericTypeIndicator<Map<String, List<List<String>>>>() {};
+                Map<String, List<List<String>>> result = task.getResult().getValue(typeIndicator);
+                if(result==null){
+                    //todo:finish this
+                    result=new HashMap<>();
+                }
+                Log.d(TAG, "download_from_database: Successfully downloaded data"+result.toString());
+                s_data=result;
+            } else {
+                // Handle the error here
+                Log.e(TAG, "download_from_database: Error, cannot download from database" );
+            }
+        });
+    }
+
     public void delete_activity(AbstractActivities a){
 
         String date=encode_date(a.year,a.month,a.day);
