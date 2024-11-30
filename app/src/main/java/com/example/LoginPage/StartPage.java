@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.b07demosummer2024.R;
 
+
 public class StartPage extends AppCompatActivity {
     Button Login,Signup;
 
