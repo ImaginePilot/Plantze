@@ -19,6 +19,7 @@
 
     </FrameLayout>
 
+
     <TextView
         android:id="@+id/text_register"
         android:layout_width="wrap_content"
@@ -31,10 +32,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
+
     <EditText
         android:id="@+id/Name"
         android:layout_width="287dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_above="@+id/Email"
         android:layout_margin="30dp"
         android:hint="Name"
@@ -45,7 +47,7 @@
     <EditText
         android:id="@+id/Email"
         android:layout_width="287dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_above="@+id/Password"
         android:layout_margin="30dp"
         android:hint="Email"
@@ -56,7 +58,7 @@
     <EditText
         android:id="@+id/Password"
         android:layout_width="287dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_margin="30dp"
@@ -69,7 +71,7 @@
     <EditText
         android:id="@+id/ConfirmPassword"
         android:layout_width="287dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_margin="30dp"
         android:layout_marginTop="48dp"
         android:hint="ConfirmPassword"

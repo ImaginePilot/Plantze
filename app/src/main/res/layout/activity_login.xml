@@ -33,6 +33,12 @@
             android:layout_marginTop="36.7dp"
             android:layout_marginRight="62dp"
             android:background="@drawable/blue_border_rounded_cornwe">
+            <TextView
+                android:id="@+id/Message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/Email"
+                android:layout_margin="20dp"/>
 
             <!--INPUT-->
             <EditText
@@ -44,8 +50,8 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:paddingLeft="17dp"
-                android:paddingTop="15dp"
+                android:paddingLeft="24dp"
+                android:paddingTop="24dp"
                 android:paddingBottom="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp"/>
@@ -80,8 +86,8 @@
                 android:maxLength="10"
                 android:maxLines="1"
                 android:paddingLeft="17dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp"/>
 
