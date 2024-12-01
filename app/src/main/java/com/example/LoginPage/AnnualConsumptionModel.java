@@ -2,7 +2,7 @@ package com.example.LoginPage;
 
 public class AnnualConsumptionModel {
 
-    public  String[] questions= new String[]{
+    public  String[] questions= new String[]{     //An array of all the questions
             "Do you own or regularly use a car?",
             "What type of car do you drive?",
             "How many kilometers/miles do you drive per year?",
@@ -28,7 +28,7 @@ public class AnnualConsumptionModel {
             "How many electronic devices (phones, laptops, etc.) have you purchased in the past year?",
             "How often do you recycle?"
     };
-    public String[][] answerChoices = new String[][]  {
+    public String[][] answerChoices = new String[][]  {  //A 2d array of Answers
             {"Yes","No"},
             {"Gasoline","Diesel","Hybrid","Electric","I don’t know"},
             {"Up to 5,000 km (3,000 miles)","5,000-10,000 km (3,000–6,000 miles)","10,000–15,000 km (6,000–9,000 miles)","15,000–20,000 km (9,000–12,000 miles)","20,000–25,000 km (12,000–15,000 miles)","More than 25,000 km (15,000 miles)"},
@@ -54,7 +54,7 @@ public class AnnualConsumptionModel {
             {"None","1","2","3 or more"},
             {"Never","Occasionally","Frequently","Always"}
     };
-    public  String getQuestion(int i)
+    public  String getQuestion(int i) //gets the question
     {
         if( i<0)
             return questions[0];
@@ -63,7 +63,7 @@ public class AnnualConsumptionModel {
         else
             return questions[i];
     }
-    public  String[] getAnswerChoices(int i)
+    public  String[] getAnswerChoices(int i) // gets the answer choices
     {
         if( i<0)
             return answerChoices[0];

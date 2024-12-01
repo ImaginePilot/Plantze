@@ -27,7 +27,7 @@ public class Model {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Email sent.");
+                            Presenter.ForgotPasswordEmailSent();
                         }
                     }
                 });
@@ -99,7 +99,7 @@ public class Model {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {
-
+                                       Presenter.RegistrationEmailSent();
                                     }
                                 }
                             });

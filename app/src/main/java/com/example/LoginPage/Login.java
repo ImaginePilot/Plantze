@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,7 +74,7 @@ public class Login extends AppCompatActivity implements MainActivityContract.Log
 
     public void DisplayMessage(String Message)
     {
-        message.setText(Message);
+        Toast.makeText(this, Message, Toast.LENGTH_SHORT).show();
     }
 
     public void NextActivity(String Uid){

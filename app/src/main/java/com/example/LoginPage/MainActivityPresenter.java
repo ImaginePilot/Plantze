@@ -27,9 +27,12 @@ public class MainActivityPresenter {
         {
             model.SendForgotPasswordEmail(Email);
 
-            login.DisplayMessage("If your are a registered user an email has been sent to you to rest your password");
+
         }
 
+    }
+    public void ForgotPasswordEmailSent(){
+        login.DisplayMessage("An email to reset your password has been sent");
     }
     public void login() {
         String Email = login.getEmail();
@@ -37,8 +40,9 @@ public class MainActivityPresenter {
         if(Email.isEmpty() || Password.isEmpty() ){
             login.DisplayMessage("Feild or Feilds Cannot be empty");
         }
-
-        model.SignIn(Email,Password);
+        else {
+            model.SignIn(Email, Password);
+        }
 
 
     }
@@ -50,6 +54,9 @@ public class MainActivityPresenter {
             model.signup(Email, Password);
         else
             register.MakeToast("Passwords dont Match");
+    }
+    public void RegistrationEmailSent(){
+        register.MakeToast("An email containing verfication link has been sent to the email address");
     }
     public void loginSucessful(String Uid){
         model.GlobalEmissionsData(Uid);

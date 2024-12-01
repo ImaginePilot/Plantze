@@ -27,10 +27,10 @@ import java.io.InputStream;
 
 public class Global_emission_result extends AppCompatActivity {
 
-    TextView transport,publicT,privateT,flights;
-    TextView food,beef,pork,chicken,fish,leftovers;
-    TextView housing,renewable;
-    TextView consumption,clothes,secondhand,electronics,recycle;
+    TextView transport,publicT,privateT,flights;// Variables related to Transportation
+    TextView food,beef,pork,chicken,fish,leftovers;// Variables related to food
+    TextView housing,renewable; //Variables related to housing
+    TextView consumption,clothes,secondhand,electronics,recycle; //V
     TextView TotalComparision;
     UserData User_Data = new UserData();
 

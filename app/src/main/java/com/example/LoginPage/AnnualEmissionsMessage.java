@@ -14,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.b07demosummer2024.R;
 
+
+// Displays the Message before asking Annual Emissions Questions
 public class AnnualEmissionsMessage extends AppCompatActivity {
     private Button Next;
     private TextView Message;

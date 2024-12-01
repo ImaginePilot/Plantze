@@ -50,8 +50,14 @@ public class ExampleUnitTest {
         when(login.getEmail()).thenReturn("rohitmutyala920@gmail.com");
         presenter.ForgotPassword();
         verify(model).SendForgotPasswordEmail("rohitmutyala920@gmail.com");
-        verify(login).DisplayMessage("If your are a registered user an email has been sent to you to rest your password");
 
+
+    }
+    @Test
+    public void testRegistrationEmailSent(){
+        MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
+        presenter.RegistrationEmailSent();
+        verify(registration).MakeToast("An email containing verfication link has been sent to the email address");
     }
     @Test
     public void testForgotPassword(){
@@ -59,6 +65,13 @@ public class ExampleUnitTest {
         when(login.getEmail()).thenReturn("");
         presenter.ForgotPassword();
         verify(login).DisplayMessage("Email cannot be empty");
+    }
+    @Test
+    public void testForgotPasswordEmailSent(){
+        MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
+        presenter.ForgotPasswordEmailSent();
+        verify(login).DisplayMessage("An email to reset your password has been sent");
+
     }
     @Test
     public void testlogin(){

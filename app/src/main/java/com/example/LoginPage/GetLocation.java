@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-
+//gets the location of the user based on the locations we were given
 public class GetLocation extends AppCompatActivity {
 
     public UserData Data = new UserData();
@@ -49,6 +49,7 @@ public class GetLocation extends AppCompatActivity {
             String Uid = getIntent().getStringExtra("Uid");
             Data.Uid = Uid;
 
+            // Reading the countries and emissions for the excel file we were given
             ArrayList<String> countries_list = new ArrayList<>();
             ArrayList<String> emissions_list = new ArrayList<>();
             AssetManager assetManager = getAssets();
@@ -69,7 +70,7 @@ public class GetLocation extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
-
+            // An adapter Containing all the countries user can select select from
             ArrayAdapter<String> adpater = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,countries_list);
             CountryList.setAdapter(adpater);
             Next.setOnClickListener(new View.OnClickListener() {
