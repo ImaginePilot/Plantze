@@ -22,7 +22,7 @@ public class EcoTrackerActivity extends AppCompatActivity{
     private StoredData d;
     private EcoTrackerRecyclerAdapter  adapter;
     private TextView CO2Text;
-
+    private Button habitTracker;
     private RecyclerView recyclerView;
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -81,6 +81,13 @@ public class EcoTrackerActivity extends AppCompatActivity{
 
 
         CO2Text.setText("Total Emissions Today: "+(int)d.getCO2(selectedDate)+" Kg");
+        habitTracker=findViewById(R.id.enterHabitPageButton);
+        habitTracker.setOnClickListener(
+                v->{
+                    Intent intent=new Intent(this,HabitTrackerPageActivity.class);
+                    startActivity(intent);
+                }
+        );
 
 
 

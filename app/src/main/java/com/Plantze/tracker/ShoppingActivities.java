@@ -5,6 +5,20 @@ public class ShoppingActivities extends AbstractActivities{
         super(s, value);
     }
 
+    public void generateDescription(){
+        switch (sub_type){
+            case "clothes":
+                description="Buying clothes are normal. Each shirt creates 5kg of CO2 emission!";
+                break;
+            case "electronics":
+                description="Buying electronics creates a lot of CO2 emission, each one creates 300kg of emission.";
+                break;
+            case "others":
+                description="Any other stuff will do! We will assume it creates 100kg of emission.";
+                break;
+        }
+    }
+
     @Override
     public double calculateCO2() {
         CO2=0;

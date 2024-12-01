@@ -1,9 +1,12 @@
 package com.Plantze.tracker;
 
 public class MonthlyBillActivities extends AbstractActivities{
+    @Override
+    public void generateDescription() {
 
+    }
 
-    public MonthlyBillActivities(String sub_type,int value){
+    public MonthlyBillActivities(String sub_type, int value){
         super(sub_type,value);
 
     }

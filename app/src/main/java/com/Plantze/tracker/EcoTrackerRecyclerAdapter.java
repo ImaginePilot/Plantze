@@ -91,6 +91,8 @@ public class EcoTrackerRecyclerAdapter extends RecyclerView.Adapter<EcoTrackerRe
                 }else{
                     subSubType="short haul";
                 }
+            } else if (a.sub_type=="") {
+                
             }
         } else if (a.getClass()==ShoppingActivities.class) {
             activityType="Shopping";
@@ -98,6 +100,9 @@ public class EcoTrackerRecyclerAdapter extends RecyclerView.Adapter<EcoTrackerRe
             activityType="Food";
         }else if(a.getClass()==MonthlyBillActivities.class){
             activityType="Monthly Bill";
+        }
+        if(a.is_habit){
+            activityType=activityType+" (Unfinished Habit)";
         }
         holder.activityType.setText(activityType);
         holder.sub_sub_type.setText(subSubType);

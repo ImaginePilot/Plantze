@@ -80,4 +80,35 @@ public class TransportActivities extends AbstractActivities{
         }
         return CO2;
     }
+
+    public void generateDescription(){
+        switch (sub_type){
+            case "car":
+                switch(vehicle){
+                    case "electric":
+                        description="The most economic kind of car.";
+                        break;
+                    case "diesel":
+                        description="The least economic kind of car.";
+                        break;
+                    case "hybrid":
+                        description="Produces amount of CO2 in between electric and gasoline.";
+                        break;
+                    default:
+                        description="Produces large amount of CO2, but better than diesel cars.";
+                        break;
+                }
+                break;
+            case "plane":
+                description="Plane produces large amounts of CO2 when flying, but do you know it is better than cars when coming to per kilometer emission?.";
+                break;
+            case "public_transport":
+                description="Sharing vehicles with others greatly reduces CO2 emission";
+                break;
+            case "cycling_or_walking":
+                description="Produces almost no CO2. The best way of travelling!";
+                break;
+
+        }
+    }
 }

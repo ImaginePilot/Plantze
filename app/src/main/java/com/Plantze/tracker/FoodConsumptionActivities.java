@@ -36,4 +36,22 @@ public class FoodConsumptionActivities extends AbstractActivities{
         }
         return CO2;
     }
+
+    @Override
+    public void generateDescription() {
+        switch (sub_type){
+            case "beef":
+                description="Beef generates the most CO2 during production.";
+                break;
+            case "pork":
+                description="Pork generates less CO2 than beef but more than chicken.";
+                break;
+            case "chicken":
+                description="Chicken generates less CO2 than pork but more than fish.";
+                break;
+            case "fish":
+                description="Fish generates the least CO2 during production";
+                break;
+        }
+    }
 }

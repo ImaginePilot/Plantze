@@ -10,6 +10,7 @@
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
     <string-array name="type_options">
+        <item>None</item>
         <item>Transportation</item>
         <item>Food</item>
         <item>Shopping</item>
@@ -20,6 +21,7 @@
         <item>Shopping</item>
     </string-array>
     <string-array name="impact_options">
+        <item>None</item>
         <item>Small</item>
         <item>Medium</item>
         <item>Large</item>

@@ -23,9 +23,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
-public class StoredData {
+public class StoredData implements Serializable {
     //Stores Data and add data to FireBase
     private DatabaseReference reference;
     public Map<String,List<List<String>>> s_data=new HashMap<>();
@@ -103,6 +104,9 @@ public class StoredData {
         res.add(value);
         if(marker){
             res.add(extra_value);
+        }
+        if(a.is_habit){
+            res.add("is_habit");
         }
         return res;
     }
@@ -229,6 +233,11 @@ public class StoredData {
             value.forEach(item -> {
                 String s = item.get(0);
                 int l = item.size();
+                boolean is_habit=false;
+                if(item.get(l-1).equals("is_habit")){
+                    is_habit=true;
+                    l--;
+                }
                 AbstractActivities abs = null;
                 switch (s) {
                     case "tra":
@@ -257,6 +266,7 @@ public class StoredData {
                     abs.year = date.get(0);
                     abs.month = date.get(1);
                     abs.day = date.get(2);
+                    abs.is_habit=is_habit;
                     activities.add(abs);
                 } catch (Exception e) {
                     e.printStackTrace();
