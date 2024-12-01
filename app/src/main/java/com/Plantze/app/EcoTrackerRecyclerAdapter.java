@@ -1,4 +1,4 @@
-package com.Plantze.tracker;
+package com.plantze.app;
 
 import static android.content.ContentValues.TAG;
 

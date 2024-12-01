@@ -1,4 +1,4 @@
-package com.Plantze.tracker;
+package com.plantze.app;
 
 import android.app.Application;
 import android.content.Context;

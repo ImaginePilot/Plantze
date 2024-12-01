@@ -1,4 +1,4 @@
-package com.Plantze.tracker;
+package com.plantze.app;
 
 public class TransportActivities extends AbstractActivities{
     public String vehicle;

@@ -1,4 +1,4 @@
-package com.Plantze.tracker;
+package com.plantze.app;
 
 public class ShoppingActivities extends AbstractActivities{
     public ShoppingActivities(String s, int value) {
