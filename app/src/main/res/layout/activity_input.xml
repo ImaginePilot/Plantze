@@ -5,23 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/light_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
+
     <TextView
         android:id="@+id/textActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="220dp"
-        android:background="@color/teal_700"
+        android:layout_marginTop="188dp"
+        android:fontFamily="sans-serif-black"
         android:text="Activity"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textColor="@color/grey_blue"
+        android:textSize="40sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
+        android:id="@+id/spinner"
         android:layout_width="115dp"
         android:layout_height="43dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="124dp"
         android:entries="@array/activity_type"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,14 +43,25 @@
         android:id="@+id/shoppingPageSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="108dp"
         android:text="Save"
         android:textAlignment="center"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/light_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shoppingPageSaveButton">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
