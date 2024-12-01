@@ -57,7 +57,7 @@ public class StoredData implements Serializable {
 
     public void upload_to_database(){
         //usually this should be tracker
-        reference.child(uid).setValue(s_data).addOnSuccessListener(aVoid -> {
+        reference.child(uid).child("TrackerData").setValue(s_data).addOnSuccessListener(aVoid -> {
                     Log.d("Firebase", "Map uploaded successfully");
                 })
                 .addOnFailureListener(e -> {
@@ -132,7 +132,7 @@ public class StoredData implements Serializable {
     }
 
     public void download_from_database() {
-        reference.child(uid).get().addOnCompleteListener(task -> {
+        reference.child(uid).child("TrackerData").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 GenericTypeIndicator<Map<String, List<List<String>>>> typeIndicator =
                         new GenericTypeIndicator<Map<String, List<List<String>>>>() {};
