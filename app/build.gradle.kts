@@ -43,6 +43,13 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-storage")
+
+
+
+    implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.15.2")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
