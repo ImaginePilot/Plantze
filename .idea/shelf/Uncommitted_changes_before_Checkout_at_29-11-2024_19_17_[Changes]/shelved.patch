@@ -1,0 +1,32 @@
+Index: app/src/main/res/mipmap-anydpi-v26/action.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <background android:drawable=\"@color/action_background\"/>\r\n    <foreground android:drawable=\"@drawable/action_foreground\"/>\r\n</adaptive-icon>
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/action.xml b/app/src/main/res/mipmap-anydpi-v26/action.xml
+--- a/app/src/main/res/mipmap-anydpi-v26/action.xml	(revision 8765c6d840f2e543197922da36935f88a857d394)
++++ b/app/src/main/res/mipmap-anydpi-v26/action.xml	(date 1732925673153)
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@color/action_background"/>
++    <background android:drawable="@drawable/action_background"/>
+     <foreground android:drawable="@drawable/action_foreground"/>
+ </adaptive-icon>
+\ No newline at end of file
+Index: app/src/main/res/mipmap-anydpi-v26/action_round.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <background android:drawable=\"@color/action_background\"/>\r\n    <foreground android:drawable=\"@drawable/action_foreground\"/>\r\n</adaptive-icon>
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/action_round.xml b/app/src/main/res/mipmap-anydpi-v26/action_round.xml
+--- a/app/src/main/res/mipmap-anydpi-v26/action_round.xml	(revision 8765c6d840f2e543197922da36935f88a857d394)
++++ b/app/src/main/res/mipmap-anydpi-v26/action_round.xml	(date 1732925720469)
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@color/action_background"/>
++    <background android:drawable="@drawable/action_background"/>
+     <foreground android:drawable="@drawable/action_foreground"/>
+ </adaptive-icon>
+\ No newline at end of file

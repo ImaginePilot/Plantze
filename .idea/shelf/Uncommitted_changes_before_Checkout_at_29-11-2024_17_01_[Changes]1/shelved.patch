@@ -1,0 +1,1440 @@
+Index: app/src/main/java/com/Plantze/tracker/AbstractActivities.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/AbstractActivities.java b/app/src/main/java/com/Plantze/tracker/AbstractActivities.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/AbstractActivities.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,17 +0,0 @@
+-package com.Plantze.tracker;
+-
+-public abstract class AbstractActivities {
+-    public int year;
+-    public int month;
+-    public int day;
+-    public String sub_type;
+-    public int value;
+-    public double CO2=0;
+-    public AbstractActivities(String s,int value){
+-        sub_type=s;
+-        this.value=value;
+-    }
+-    public abstract double calculateCO2();
+-
+-}
+-
+Index: app/src/main/java/com/Plantze/tracker/EcoTrackerActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/EcoTrackerActivity.java b/app/src/main/java/com/Plantze/tracker/EcoTrackerActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/EcoTrackerActivity.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,89 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.util.Log;
+-import android.widget.Button;
+-import android.widget.TextView;
+-import android.widget.Toast;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-import androidx.recyclerview.widget.LinearLayoutManager;
+-import androidx.recyclerview.widget.RecyclerView;
+-
+-public class EcoTrackerActivity extends AppCompatActivity{
+-    private String selectedDate;
+-    private Button transportationAdd;
+-    private Button foodAdd;
+-    private Button shoppingAdd;
+-
+-    private Button monthlyBill;
+-    private Button selectDateButton;
+-    private StoredData d;
+-    private EcoTrackerRecyclerAdapter  adapter;
+-    private TextView CO2Text;
+-
+-    private RecyclerView recyclerView;
+-    @Override
+-    public void onCreate(Bundle savedInstanceState){
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_eco_tracker);
+-        transportationAdd=findViewById(R.id.transportationActivityAddButton);
+-        foodAdd=findViewById(R.id.foodActivityAddButton);
+-        shoppingAdd=findViewById(R.id.shoppingActivityAddButton);
+-        CO2Text=findViewById(R.id.CO2TextView);
+-        monthlyBill=findViewById(R.id.monthlyBillButton);
+-        selectedDate = getIntent().getStringExtra("date");
+-        d=EcoTrackerApplication.getInstance(this).getStoredData();
+-        if (selectedDate != null) {
+-            TextView dateTextView = findViewById(R.id.ecoTrackerDateTextView);
+-            dateTextView.setText("Date: " + selectedDate);
+-        } else {
+-            // Handle case where no date was passed
+-            Toast.makeText(this, "No date selected", Toast.LENGTH_SHORT).show();
+-        }
+-        selectDateButton=findViewById(R.id.calendar);
+-        selectDateButton.setOnClickListener(v->{
+-            Log.d("TAG","pressed SelectDate");
+-            Intent calendarIntent=new Intent(this,CalendarActivity.class);
+-            startActivity(calendarIntent);
+-
+-        });
+-        transportationAdd.setOnClickListener(v -> {
+-            Intent intent=new Intent(this, TransportationPageActivity.class);
+-            intent.putExtra("date",selectedDate);
+-            startActivity(intent);
+-        });
+-        monthlyBill=findViewById(R.id.monthlyBillButton);
+-        monthlyBill.setOnClickListener(v->{
+-            Intent intent=new Intent(this,BillPageActivity.class);
+-            intent.putExtra("date",selectedDate);
+-            startActivity(intent);
+-        });
+-        foodAdd.setOnClickListener(v->{
+-            Intent intent=new Intent(this,FoodPageActivity.class);
+-            intent.putExtra("date",selectedDate);
+-            startActivity(intent);
+-        });
+-        shoppingAdd.setOnClickListener(v->{
+-            Intent intent=new Intent(this,ShoppingPageActivity.class);
+-            intent.putExtra("date",selectedDate);
+-            startActivity(intent);
+-        });
+-
+-        recyclerView=findViewById(R.id.recyclerViewIndividualActivities);
+-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+-        adapter=new EcoTrackerRecyclerAdapter(this,selectedDate);
+-        recyclerView.setAdapter(adapter);
+-        adapter.setExternalCO2TextView(CO2Text);
+-
+-
+-        CO2Text.setText("Total Emissions Today: "+(int)d.getCO2(selectedDate)+" Kg");
+-
+-
+-
+-    }
+-
+-
+-
+-}
+Index: app/src/main/java/com/Plantze/tracker/TransportActivities.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/TransportActivities.java b/app/src/main/java/com/Plantze/tracker/TransportActivities.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/TransportActivities.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,83 +0,0 @@
+-package com.Plantze.tracker;
+-
+-public class TransportActivities extends AbstractActivities{
+-    public String vehicle;
+-    public boolean is_long_haul_flight;
+-    public TransportActivities(String s, int value){
+-        super(s,value);
+-    }
+-    public TransportActivities(String s,int value, String v){
+-        //can be used for both car or public transportation
+-        super(s,value);
+-        this.vehicle=v;
+-    }
+-    public TransportActivities(String s,int value, boolean i){
+-        super(s,value);
+-        this.is_long_haul_flight=i;
+-    }
+-    private double calculate_flight_CO2(){
+-        if(is_long_haul_flight){
+-            if(value==0){
+-                return 0;
+-            }else if(value <=2 ){
+-                return  225;
+-            }else if(value <=5){
+-                return 600;
+-            }else if(value <=10){
+-                return 1200;
+-            }else return 1800;
+-        }else{
+-            if(value==0){
+-                return 0;
+-            }else if(value <=2 ){
+-                return  825;
+-            }else if(value <=5){
+-                return 2200;
+-            }else if(value <=10){
+-                return 4400;
+-            }else return 6600;
+-        }
+-    }
+-    public double calculateCO2(){
+-        this.CO2=0;
+-        switch (sub_type){
+-            case "car":
+-                switch(vehicle){
+-                    case "electric":
+-                        CO2+=value*0.05;
+-                        break;
+-                    case "diesel":
+-                        CO2+=value*0.27;
+-                        break;
+-                    case "hybrid":
+-                        CO2+=value*0.16;
+-                        break;
+-                    default:
+-                        CO2+=value*0.24;
+-                        break;
+-                }
+-                break;
+-            case "plane":
+-                CO2+=calculate_flight_CO2();
+-                break;
+-            case "public_transport":
+-                if(value<=1){
+-                    CO2+=246;
+-                }else if(value<=3){
+-                    CO2+=819;
+-                }else if(value<=5){
+-                    CO2+=1638;
+-                }else if(value<=10){
+-                    CO2+=3071;
+-                }else{
+-                    CO2+=4095;
+-                }
+-                break;
+-            case "cycling_or_walking":
+-                CO2+=value;
+-                break;
+-
+-        }
+-        return CO2;
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/ShoppingActivities.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/ShoppingActivities.java b/app/src/main/java/com/Plantze/tracker/ShoppingActivities.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/ShoppingActivities.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,39 +0,0 @@
+-package com.Plantze.tracker;
+-
+-public class ShoppingActivities extends AbstractActivities{
+-    public ShoppingActivities(String s, int value) {
+-        super(s, value);
+-    }
+-
+-    @Override
+-    public double calculateCO2() {
+-        CO2=0;
+-        switch(sub_type){
+-            case "clothes":
+-                CO2+=5;
+-                break;
+-            case "electronics":
+-                switch (value){
+-                    case 0:
+-                        CO2+=0;
+-                        break;
+-                    case 1:
+-                        CO2+=300;
+-                        break;
+-                    case 2:
+-                        CO2+=600;
+-                        break;
+-                    case 3:
+-                        CO2+=900;
+-                        break;
+-                    default:
+-                        CO2+=1200;
+-                        break;
+-                }
+-            case "other":
+-                CO2+=value*100;
+-                break;
+-        }
+-        return CO2;
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/data.json
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/data.json b/app/src/main/java/com/Plantze/tracker/data.json
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/data.json	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,1 +0,0 @@
+-{}
+\ No newline at end of file
+Index: app/src/main/java/com/Plantze/tracker/UserInfo.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/UserInfo.java b/app/src/main/java/com/Plantze/tracker/UserInfo.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/UserInfo.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,7 +0,0 @@
+-package com.Plantze.tracker;
+-
+-public class UserInfo {
+-    public String email;
+-    public int password;
+-
+-}
+Index: app/src/main/java/com/Plantze/tracker/StoredData.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/StoredData.java b/app/src/main/java/com/Plantze/tracker/StoredData.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/StoredData.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,233 +0,0 @@
+-package com.Plantze.tracker;
+-
+-
+-
+-import static android.content.ContentValues.TAG;
+-
+-import android.app.Activity;
+-import android.content.Context;
+-import android.util.Log;
+-
+-import com.fasterxml.jackson.core.ObjectCodec;
+-import com.fasterxml.jackson.core.type.TypeReference;
+-import com.fasterxml.jackson.databind.JavaType;
+-import com.google.android.gms.auth.api.signin.internal.Storage;
+-import com.google.firebase.FirebaseApp;
+-import com.google.firebase.database.FirebaseDatabase;
+-import com.google.firebase.storage.FirebaseStorage;
+-import com.google.firebase.storage.StorageReference;
+-import com.fasterxml.jackson.databind.ObjectMapper;
+-
+-import java.io.File;
+-import java.io.IOException;
+-import java.util.*;
+-
+-public class StoredData {
+-    //Stores Data and add data to FireBase
+-    private FirebaseStorage storage;
+-    private StorageReference global_db;
+-    public Map<String,List<List<String>>> s_data=new HashMap<>();
+-    public List<AbstractActivities> activities=new ArrayList<>();
+-    public StoredData(String uid){
+-        //FirebaseApp.initializeApp();
+-        this.storage = FirebaseStorage.getInstance();
+-        this.global_db=storage.getReference(uid);
+-    }
+-    public StoredData(Map<String,List<List<String>>> l_data){
+-        s_data=l_data;
+-        create_activities();
+-    }
+-
+-    public Map<String,List<List<String>>> read_from_file(Context context){
+-        ObjectMapper objectMapper=new ObjectMapper();
+-        try{
+-            File file=new File(context.getFilesDir(),"data.json");
+-            Map<String,List<List<String>>> local_s_data=objectMapper.readValue(file,new TypeReference<Map<String, List<List<String>>>>() {});
+-            s_data=local_s_data;
+-        }catch(IOException e){
+-            e.printStackTrace();
+-        }
+-        return s_data;
+-    }
+-    public void write_to_mapping(String date,List<List<String>> params){
+-        //This does not write anything to activity instances
+-        if(s_data.containsKey(date)){
+-            List<List<String>> new_params=new ArrayList<>(s_data.get(date));
+-            new_params.addAll(params);
+-            s_data.put(date,new_params);
+-        }else{
+-            s_data.put(date,params);
+-        }
+-
+-    }
+-    public static ArrayList<String> stringifyActivity(AbstractActivities a){
+-        String date=encode_date(a.year,a.month,a.day);
+-        String sub_type=a.sub_type;
+-        String value=Integer.toString(a.value);
+-        String extra_value = "";
+-        String class_name = "";
+-        boolean marker=false;
+-        if(a.getClass()==FoodConsumptionActivities.class){
+-            class_name="foo";
+-        }else if(a.getClass()==ShoppingActivities.class){
+-            class_name="sho";
+-        }else if(a.getClass()==TransportActivities.class){
+-            class_name="tra";
+-            marker=true;
+-            if(sub_type=="car"||sub_type=="public_transport"){
+-                extra_value=((TransportActivities) a).vehicle;
+-            } else if (sub_type=="plane") {
+-                extra_value=Boolean.toString(((TransportActivities) a).is_long_haul_flight);
+-            }
+-        }else if(a.getClass()== MonthlyBillActivities.class){
+-            class_name="bill";
+-        }
+-        ArrayList<String> res=new ArrayList<>();
+-        res.add(class_name);
+-        res.add(sub_type);
+-        res.add(value);
+-        if(marker){
+-            res.add(extra_value);
+-        }
+-        return res;
+-    }
+-
+-
+-    public void single_write_to_mapping(AbstractActivities a){
+-        String date=encode_date(a.year,a.month,a.day);
+-        activities.add(a);
+-        ArrayList<String> res=stringifyActivity(a);
+-        List<List<String>> l=new ArrayList<>();
+-        l.add(res);
+-        write_to_mapping(date,l);
+-    }
+-    public void flush_to_file(Context context){
+-        ObjectMapper objectMapper=new ObjectMapper();
+-        try{
+-            File file=new File(context.getFilesDir(),"data.json");
+-            Log.d("FilePath", "File location: " + file.getAbsolutePath());
+-            objectMapper.writeValue(file,s_data);
+-        }catch(IOException e){
+-            e.printStackTrace();
+-        }
+-    }
+-    public void delete_activity(AbstractActivities a){
+-
+-        String date=encode_date(a.year,a.month,a.day);
+-        List<String> s_a= stringifyActivity(a);
+-        if(s_data.get(date)==null){
+-            return;
+-        }
+-        try{
+-            boolean finished_delete_s_data=false;
+-            boolean finished_delete_activities=false;
+-            if(s_data.get(date).contains(s_a)){
+-                List<List<String>> new_data=new ArrayList<>();
+-                for(List<String> item:s_data.get(date)) {
+-                    if (!item.equals(s_a) || finished_delete_s_data) {
+-                        new_data.add(item);
+-                    }else{
+-                        finished_delete_s_data=true;
+-                    }
+-                }
+-                s_data.put(date,new_data);
+-
+-                List<AbstractActivities> new_activities=new ArrayList<>();
+-                for(AbstractActivities item:activities){
+-                    String d_item=encode_date(item.year, item.month, item.day);
+-                    List<String> s_item=stringifyActivity(item);
+-                    if(((!s_item.equals(s_a))&&(!date.equals(d_item)))||finished_delete_activities){
+-                        new_activities.add(item);
+-                    }else{
+-                        finished_delete_activities=true;
+-                    }
+-                }
+-                activities=new_activities;
+-            }
+-        }catch (Exception e){
+-            e.printStackTrace();
+-        }
+-
+-
+-    }
+-
+-    public double getCO2(String date){
+-        Map<String,List<List<String>>>activityStrings=new HashMap<>();
+-        if(this.s_data.containsKey(date)){
+-            activityStrings.put(date,this.s_data.get(date));
+-        }
+-        StoredData d=new StoredData(activityStrings);
+-        double CO2=0;
+-        for(AbstractActivities a:d.activities){
+-            CO2+=a.calculateCO2();
+-        }
+-        return CO2;
+-    }
+-
+-    public static ArrayList<Integer> decode_date(String date){
+-        String year=date.substring(0,4);
+-        String month=date.substring(5,7);
+-        String day=date.substring(8,10);
+-        ArrayList<Integer> res=new ArrayList<>();
+-        res.add(Integer.parseInt(year));
+-        res.add(Integer.parseInt(month));
+-        res.add(Integer.parseInt(day));
+-        return res;
+-    }
+-    public static String encode_date(int year,int month,int day){
+-        String s_month;
+-        String s_day;
+-        if(day<10){
+-            s_day="0"+day;
+-        }else{
+-            s_day=""+day;
+-        }
+-        if(month<10){
+-            s_month="0"+month;
+-        }else{
+-            s_month=""+month;
+-        }
+-        return year+"-"+s_month+"-"+s_day;
+-    }
+-    public void create_activities() {
+-        s_data.forEach((key, value) -> {
+-            value.forEach(item -> {
+-                String s = item.get(0);
+-                int l = item.size();
+-                AbstractActivities abs = null;
+-                switch (s) {
+-                    case "tra":
+-                        if (l == 3) {
+-                            abs = new TransportActivities(item.get(1), Integer.parseInt(item.get(2)));
+-                        } else if (Objects.equals(item.get(3), "true")) {
+-                            abs = new TransportActivities(item.get(1), Integer.parseInt(item.get(2)), true);
+-                        } else if (Objects.equals(item.get(3), "false")) {
+-                            abs = new TransportActivities(item.get(1), Integer.parseInt(item.get(2)), false);
+-                        } else {
+-                            abs = new TransportActivities(item.get(1), Integer.parseInt(item.get(2)), item.get(3));
+-                        }
+-                        break;
+-                    case "foo":
+-                        abs = new FoodConsumptionActivities(item.get(1), Integer.parseInt(item.get(2)));
+-                        break;
+-                    case "sho":
+-                        abs = new ShoppingActivities(item.get(1), Integer.parseInt(item.get(2)));
+-                        break;
+-                    case "bill":
+-                        abs = new MonthlyBillActivities(item.get(1),Integer.parseInt(item.get(2)));
+-                        break;
+-                }
+-                ArrayList<Integer> date = decode_date(key);
+-                try {
+-                    abs.year = date.get(0);
+-                    abs.month = date.get(1);
+-                    abs.day = date.get(2);
+-                    activities.add(abs);
+-                } catch (Exception e) {
+-                    e.printStackTrace();
+-                }
+-
+-            });
+-        });
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/EcoTrackerApplication.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/EcoTrackerApplication.java b/app/src/main/java/com/Plantze/tracker/EcoTrackerApplication.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/EcoTrackerApplication.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,27 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import android.app.Application;
+-import android.content.Context;
+-
+-import com.google.firebase.FirebaseApp;
+-
+-public class EcoTrackerApplication extends Application {
+-    private StoredData storedData;
+-    private String id="1";
+-    @Override
+-    public void onCreate(){
+-        super.onCreate();
+-        FirebaseApp.initializeApp(this);
+-        storedData=new StoredData(id);
+-
+-    }
+-    public StoredData getStoredData(){
+-        return storedData;
+-    }
+-    public void setStoredData(String sid) {
+-        storedData = new StoredData(sid);
+-    }
+-    public static  EcoTrackerApplication getInstance(Context context){
+-        return (EcoTrackerApplication) context.getApplicationContext();
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/MainActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/MainActivity.java b/app/src/main/java/com/Plantze/tracker/MainActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/MainActivity.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,65 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.util.Log;
+-import android.widget.Button;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-import androidx.recyclerview.widget.RecyclerView;
+-
+-public class MainActivity extends AppCompatActivity{
+-    StoredData stored_data;
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-
+-
+-        // 1. Initialize essential components
+-        initializeCore();
+-
+-        // 2. Setup UI
+-        setupUI();
+-
+-        // 3. Load data
+-        loadData();
+-
+-        // 4. Start background tasks
+-
+-        setContentView(R.layout.activity_eco_tracker);
+-        startBackgroundTasks();
+-        //MainAddActivityAdapter mainAddActivityAdapter = new MainAddActivityAdapter(this);
+-        Button selectDateButton=findViewById(R.id.calendar);
+-        selectDateButton.setOnClickListener(v->{
+-            Log.d("TAG","pressed SelectDate");
+-            Intent calendarIntent=new Intent(this,CalendarActivity.class);
+-            startActivity(calendarIntent);
+-
+-        });
+-    }
+-
+-    //@Override
+-    //public void onSelectDateButtonClick(int position){
+-
+-    //}
+-
+-    private void initializeCore() {
+-        //needs more work on stored data
+-        EcoTrackerApplication.getInstance(this).setStoredData("123456");
+-        // Essential initialization
+-    }
+-
+-    private void setupUI() {
+-        //we create mainaddactivityadapter first
+-        setContentView(R.layout.activity_main);
+-        // UI setup
+-    }
+-
+-    private void loadData() {
+-        // Data loading
+-    }
+-
+-    private void startBackgroundTasks() {
+-        // Background operations
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/Plantze/tracker/ShoppingPageActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/ShoppingPageActivity.java b/app/src/main/java/com/Plantze/tracker/ShoppingPageActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/ShoppingPageActivity.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,68 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.view.View;
+-import android.widget.AdapterView;
+-import android.widget.Button;
+-import android.widget.EditText;
+-import android.widget.Spinner;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-public class ShoppingPageActivity extends AppCompatActivity {
+-    private EditText editServings;
+-    private Spinner spinner;
+-    private Button saveButton;
+-    private String subType;
+-    private String date;
+-    private StoredData d;
+-    @Override
+-    public void onCreate(Bundle savedInstanceState){
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_input_shopping);
+-        editServings=findViewById(R.id.shoppingPageEditText);
+-        saveButton=findViewById(R.id.shoppingPageSaveButton);
+-        spinner= findViewById(R.id.spinnerShoppingPage);
+-        d=EcoTrackerApplication.getInstance(this).getStoredData();
+-        date=getIntent().getStringExtra("date");
+-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+-            @Override
+-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+-                switch (position){
+-                    case 0:
+-                        subType="clothes";
+-                        break;
+-                    case 1:
+-                        subType="electronics";
+-                        break;
+-                    case 2:
+-                        subType="other";
+-                        break;
+-
+-                }
+-            }
+-
+-            @Override
+-            public void onNothingSelected(AdapterView<?> parent) {
+-
+-            }
+-        });
+-        saveButton.setOnClickListener(v->{
+-            int servings = 0;
+-            try{
+-                servings=Integer.parseInt(editServings.getText().toString().trim());
+-            }catch (Exception e){
+-                e.printStackTrace();
+-            }
+-            ShoppingActivities a=new ShoppingActivities(subType,servings);
+-            BillPageActivity.writeDate(a,date);
+-            d.single_write_to_mapping(a);
+-
+-            Intent intent =new Intent(this,EcoTrackerActivity.class);
+-            intent.putExtra("date",date);
+-            startActivity(intent);
+-
+-        });
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/BillPageActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/BillPageActivity.java b/app/src/main/java/com/Plantze/tracker/BillPageActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/BillPageActivity.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,146 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import android.content.Intent;
+-import android.os.Build;
+-import android.os.Bundle;
+-import android.widget.Button;
+-import android.widget.EditText;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import java.time.YearMonth;
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-public class BillPageActivity extends AppCompatActivity {
+-    private EditText electricityEditText;
+-    private EditText gasEditText;
+-    private EditText waterEditText;
+-    private Button saveButton;
+-    private Button deleteButton;
+-    private String date;
+-    private StoredData d;
+-
+-    @Override
+-    public void onCreate(Bundle savedInstanceState){
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.bills_input);
+-        electricityEditText=findViewById(R.id.editTextElectricity);
+-        gasEditText=findViewById(R.id.editTextGas);
+-        waterEditText=findViewById(R.id.editTextWater);
+-        deleteButton=findViewById(R.id.billPageDeleteButton);
+-        saveButton=findViewById(R.id.shoppingPageSaveButton);
+-        date=this.getIntent().getStringExtra("date");
+-        d=EcoTrackerApplication.getInstance(this).getStoredData();
+-        setDefaultText();
+-        saveButton.setOnClickListener(v->{
+-            deleteMonthlyBillActivities("electricity");
+-            deleteMonthlyBillActivities("gas");
+-            deleteMonthlyBillActivities("water");
+-            String s_electric=getEditText(electricityEditText);
+-            String s_gas=getEditText(gasEditText);
+-            String s_water=getEditText(waterEditText);
+-            if(!s_water.isEmpty()){
+-                createMonthlyBillActivities("water",Integer.parseInt(s_water));
+-            }
+-            if(!s_gas.isEmpty()){
+-                createMonthlyBillActivities("gas",Integer.parseInt(s_gas));
+-            }
+-            if(!s_electric.isEmpty()){
+-                createMonthlyBillActivities("electricity",Integer.parseInt(s_electric));
+-            }
+-            Intent intent=new Intent(this,EcoTrackerActivity.class);
+-            intent.putExtra("date",date);
+-            startActivity(intent);
+-
+-        });
+-        deleteButton.setOnClickListener(v -> {
+-            deleteMonthlyBillActivities("electricity");
+-            deleteMonthlyBillActivities("gas");
+-            deleteMonthlyBillActivities("water");
+-            Intent intent=new Intent(this,EcoTrackerActivity.class);
+-            intent.putExtra("date",date);
+-            startActivity(intent);
+-        });
+-
+-    }
+-    private String getEditText(EditText e){
+-        String res=e.getText().toString().trim();
+-        return  res;
+-    }
+-    public static List<Integer> getAllDaysInMonth(int year, int month) {
+-        YearMonth yearMonth = null;
+-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+-            yearMonth = YearMonth.of(year, month);
+-        }
+-        List<Integer> days = new ArrayList<>();
+-
+-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+-            for (int day = 1; day <= yearMonth.lengthOfMonth(); day++) {
+-                days.add(day);
+-            }
+-        }
+-        return days;
+-    }
+-    public static void writeDate(AbstractActivities a,String s_d){
+-        a.year=StoredData.decode_date(s_d).get(0);
+-        a.month=StoredData.decode_date(s_d).get(1);
+-        a.day=StoredData.decode_date(s_d).get(2);
+-    }
+-    private List<String> getAllStringifiedDates(){
+-        int year=StoredData.decode_date(date).get(0);
+-        int month=StoredData.decode_date(date).get(1);
+-        List<Integer> day=getAllDaysInMonth(year,month);
+-        List<String> dates=new ArrayList<>();
+-        for(int i_d:day){
+-            dates.add(d.encode_date(year,month,i_d));
+-        }
+-        return dates;
+-    }
+-    private int getMonthlyBillValue(String type){
+-        if(d.s_data.get(date)!=null){
+-            List<List<String>> s_activities=d.s_data.get(date);
+-            for(List<String> activity:s_activities){
+-                if(activity.get(0).equals("bill")&&activity.get(1).equals(type)){
+-                    return Integer.parseInt(activity.get(2));
+-                }
+-            }
+-        }
+-        return -1;
+-
+-    }
+-    private void setDefaultText(){
+-        if(getMonthlyBillValue("electricity")!=-1){
+-            electricityEditText.setText(""+getMonthlyBillValue("electricity"));
+-        }
+-        if(getMonthlyBillValue("gas")!=-1){
+-            gasEditText.setText(""+getMonthlyBillValue("gas"));
+-        }
+-        if(getMonthlyBillValue("water")!=-1){
+-            waterEditText.setText(""+getMonthlyBillValue("water"));
+-        }
+-
+-    }
+-
+-
+-    private void deleteMonthlyBillActivities(String type){
+-        List<String> dates=getAllStringifiedDates();
+-        int value=getMonthlyBillValue(type);
+-        for(String s_d:dates){
+-            MonthlyBillActivities a=new MonthlyBillActivities(type,value);
+-            writeDate(a,s_d);
+-            d.delete_activity(a);
+-        }
+-    }
+-
+-    private void createMonthlyBillActivities(String type,int value){
+-        List<String> dates=getAllStringifiedDates();
+-        for(String s_d:dates){
+-            MonthlyBillActivities a=new MonthlyBillActivities(type,value);
+-            writeDate(a,s_d);
+-            d.single_write_to_mapping(a);
+-        }
+-
+-    }
+-
+-}
+Index: app/src/main/java/com/Plantze/tracker/TransportationPageActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/TransportationPageActivity.java b/app/src/main/java/com/Plantze/tracker/TransportationPageActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/TransportationPageActivity.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,209 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import static android.content.ContentValues.TAG;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.util.Log;
+-import android.view.View;
+-import android.widget.AdapterView;
+-import android.widget.ArrayAdapter;
+-import android.widget.Button;
+-import android.widget.EditText;
+-import android.widget.Spinner;
+-import android.widget.Toast;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import java.util.ArrayList;
+-
+-public class TransportationPageActivity extends AppCompatActivity {
+-    Button saveButton;
+-    Spinner spinner1;
+-    Spinner spinner2;
+-    EditText editText;
+-    ArrayAdapter<String> adapter1;
+-    ArrayAdapter<String> adapter2;
+-    private ArrayList<String> items;
+-    String sub_type="";
+-    String value;
+-    int int_value;
+-    String sub_sub_type;
+-    String date;
+-    StoredData d;
+-    AbstractActivities a;
+-
+-    @Override
+-    public void onCreate(Bundle savedInstanceState){
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_input_trans);
+-        saveButton=findViewById(R.id.shoppingPageSaveButton);
+-        editText=findViewById(R.id.editTextDistance);
+-        date=getIntent().getStringExtra("date");
+-        spinner1=findViewById(R.id.transportationPageSpinner);
+-        spinner2=findViewById(R.id.transportationPageSpinner2);
+-        items=new ArrayList<>();
+-        //adapter1=new ArrayAdapter<>(this,R.layout.spinner_item_layout,R.id.transportationPageSpinner,items);
+-        adapter2=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,items);
+-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+-        //spinner1.setAdapter(adapter1);
+-        spinner2.setAdapter(adapter2);
+-        d=EcoTrackerApplication.getInstance(this).getStoredData();
+-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+-            @Override
+-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+-                switch (position){
+-                    case 0:
+-                        sub_type="car";
+-                        setCarItems();
+-                        break;
+-                    case 1:
+-                        sub_type="plane";
+-                        setPlaneItems();
+-                        break;
+-                    case 2:
+-                        sub_type="public_transport";
+-                        setPublicItems();
+-                        break;
+-                    case 3:
+-                        sub_type="cycling_or_walking";
+-                        setEcoItems();
+-                        break;
+-                }
+-            }
+-
+-            @Override
+-            public void onNothingSelected(AdapterView<?> parent) {
+-            }
+-        });
+-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+-            @Override
+-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+-                switch (sub_type){
+-                    case "car":
+-                        switch (position){
+-                            case 0:
+-                                sub_sub_type="electricity";
+-                                break;
+-                            case 1:
+-                                sub_sub_type="diesel";
+-                                break;
+-                            case 2:
+-                                sub_sub_type="hybrid";
+-                                break;
+-                            case 3:
+-                                sub_sub_type="gasoline";
+-                                break;
+-                            case 4:
+-                                sub_sub_type="other";
+-                                break;
+-                        }
+-                        break;
+-                    case "public_transport":
+-                        sub_sub_type="N/A";
+-                        break;
+-                    case "cycling_or_walking":
+-                        sub_sub_type="N/A";
+-                        break;
+-                    case "plane":
+-                        switch (position){
+-                            case 0:
+-                                sub_sub_type="short_haul";
+-                                break;
+-                            case 1:
+-                                sub_sub_type="long_haul";
+-                                break;
+-                        }
+-                        break;
+-                }
+-
+-            }
+-
+-            @Override
+-            public void onNothingSelected(AdapterView<?> parent) {
+-
+-            }
+-        });
+-        saveButton.setOnClickListener(v->{
+-            try{
+-                value=editText.getText().toString().trim();
+-                int_value=Integer.parseInt(value);
+-
+-                createInstance();
+-                Intent intent=new Intent(this,EcoTrackerActivity.class);
+-                intent.putExtra("date",date);
+-                startActivity(intent);
+-
+-            }catch (Exception e){
+-                e.printStackTrace();
+-                Toast.makeText(this,"Please enter a number!",Toast.LENGTH_SHORT).show();
+-            }
+-        });
+-
+-    }
+-    private void createInstance(){
+-        if(sub_type.equals("car")){
+-            a=new TransportActivities(sub_type,int_value,sub_sub_type);
+-        } else if (sub_type.equals("public_transport")) {
+-            a=new TransportActivities(sub_type,int_value);
+-        }else if (sub_type.equals("plane")){
+-            a=new TransportActivities(sub_type,int_value,sub_sub_type.equals("long_haul"));
+-        }else if(sub_type.equals("cycling_or_walking")){
+-            a=new TransportActivities(sub_type,int_value);
+-        }
+-        try{
+-            Log.d(TAG, "createInstance: date"+date);
+-            ArrayList<Integer> decode_date=StoredData.decode_date(date);
+-            a.year=decode_date.get(0);
+-            a.month=decode_date.get(1);
+-            a.day=decode_date.get(2);
+-            d.single_write_to_mapping(a);
+-            d.flush_to_file(this);
+-        }catch (Exception e){
+-            e.printStackTrace();
+-            Toast.makeText(this,"Instance not created or mapped successfully!",Toast.LENGTH_SHORT).show();
+-            Log.d(TAG, "createInstance: Error, instance not created or mapped");
+-        }
+-
+-    }
+-    private void setCarItems(){
+-        items.clear();
+-        items.add("electric");
+-        items.add("diesel");
+-        items.add("hybrid");
+-        items.add("gasoline");
+-        items.add("other");
+-        adapter2.setNotifyOnChange(true);
+-        adapter2.notifyDataSetChanged();
+-        spinner2.setSelection(3);
+-        editText.setHint("Distance(km)");
+-        Log.d(TAG, items.toString());
+-
+-    }
+-    private void setPublicItems(){
+-        items.clear();
+-        items.add("bus/metro");
+-        items.add("taxi");
+-        items.add("train");
+-        adapter2.notifyDataSetChanged();
+-        spinner2.setSelection(0);
+-        editText.setHint("Times");
+-    }
+-    private void setEcoItems(){
+-        items.clear();
+-        items.add("bicycle/e-bike");
+-        items.add("walk");
+-        adapter2.notifyDataSetChanged();
+-        spinner2.setSelection(0);
+-        editText.setHint("Hours(h)");
+-
+-    }
+-    private void setPlaneItems(){
+-        items.clear();
+-        items.add("short haul");
+-        items.add("long haul");
+-        adapter2.notifyDataSetChanged();
+-        spinner2.setSelection(0);
+-        editText.setHint("Legs(times)");
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/CalendarActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/CalendarActivity.java b/app/src/main/java/com/Plantze/tracker/CalendarActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/CalendarActivity.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,43 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.widget.Button;
+-import android.widget.CalendarView;
+-import android.widget.DatePicker;
+-import android.widget.SimpleAdapter;
+-import android.widget.Toast;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import java.text.SimpleDateFormat;
+-import java.util.Date;
+-import java.util.Locale;
+-
+-public class CalendarActivity extends AppCompatActivity {
+-    private CalendarView calendarView;
+-    private Button saveButton;
+-    private String selectedDate;
+-@Override
+-    protected void onCreate(Bundle savedInstanceState){
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.calendar);
+-        calendarView=findViewById(R.id.calendarView);
+-        saveButton=findViewById(R.id.calendarSaveButton);
+-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+-        selectedDate=sdf.format(new Date(calendarView.getDate()));
+-        calendarView.setOnDateChangeListener((view,year,month,dayOfMonth)->{
+-            selectedDate=String.format("%d-%02d-%02d",year,(month+1),dayOfMonth);
+-        });
+-        saveButton.setOnClickListener(v->{
+-            saveSelectedDate();
+-        });
+-
+-    }
+-    private void saveSelectedDate(){
+-        Intent intent=new Intent(this,EcoTrackerActivity.class);
+-        intent.putExtra("date",selectedDate);
+-        startActivity(intent);
+-        Toast.makeText(this, "Date saved: " + selectedDate, Toast.LENGTH_SHORT).show();
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/MonthlyBillActivities.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/MonthlyBillActivities.java b/app/src/main/java/com/Plantze/tracker/MonthlyBillActivities.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/MonthlyBillActivities.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,26 +0,0 @@
+-package com.Plantze.tracker;
+-
+-public class MonthlyBillActivities extends AbstractActivities{
+-
+-
+-    public MonthlyBillActivities(String sub_type,int value){
+-        super(sub_type,value);
+-
+-    }
+-    @Override
+-    public double calculateCO2() {
+-        CO2=0;
+-        switch (sub_type){
+-            case "electricity":
+-                CO2+=2.8*value/30;
+-                break;
+-            case "water":
+-                CO2+=0.45*value/30;
+-                break;
+-            case "gas":
+-                CO2+=4.42*value/30;
+-                break;
+-        }
+-        return  CO2;
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/EcoTrackerRecyclerAdapter.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/EcoTrackerRecyclerAdapter.java b/app/src/main/java/com/Plantze/tracker/EcoTrackerRecyclerAdapter.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/EcoTrackerRecyclerAdapter.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,157 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import static android.content.ContentValues.TAG;
+-
+-import android.content.Context;
+-import android.content.Intent;
+-import android.util.Log;
+-import android.view.LayoutInflater;
+-import android.view.View;
+-import android.view.ViewGroup;
+-import android.widget.Button;
+-import android.widget.TextView;
+-
+-import androidx.annotation.NonNull;
+-import androidx.recyclerview.widget.RecyclerView;
+-
+-import java.lang.ref.WeakReference;
+-import java.util.HashMap;
+-import java.util.List;
+-import java.util.Map;
+-
+-public class EcoTrackerRecyclerAdapter extends RecyclerView.Adapter<EcoTrackerRecyclerAdapter.ViewHolder>{
+-
+-    public StoredData d;
+-    public StoredData local_d;
+-    public String date;
+-    private WeakReference<TextView> externalCO2TextView;
+-    private Context context;
+-
+-    public static class ViewHolder extends RecyclerView.ViewHolder{
+-        public Button deleteButton;
+-        public Button editButton;
+-        public TextView activityType;
+-        public TextView subType;
+-        public TextView value;
+-        public TextView sub_sub_type;
+-
+-        Button selectDateButton;
+-        public ViewHolder(@NonNull View v) {
+-            super(v);
+-            deleteButton=v.findViewById(R.id.itemLayoutDelete);
+-            editButton=v.findViewById(R.id.itemLayoutEdit);
+-            activityType=v.findViewById(R.id.textViewActivityType);
+-            subType=v.findViewById(R.id.textViewSubType);
+-            value=v.findViewById(R.id.textViewValue);
+-            sub_sub_type=v.findViewById(R.id.textViewSubSubType);
+-        }
+-
+-
+-    }
+-    public EcoTrackerRecyclerAdapter(Context context,String date){
+-
+-        d=EcoTrackerApplication.getInstance(context).getStoredData();
+-        this.context=context;
+-        this.date=date;
+-        Map<String,List<List<String>>>activityStrings=new HashMap<>();
+-        Log.d(TAG, "EcoTrackerRecyclerAdapter: read s_data"+d.s_data.toString());
+-        if(d.s_data.containsKey(date)){
+-            activityStrings.put(date,d.s_data.get(date));
+-            Log.d(TAG, "EcoTrackerRecyclerAdapter: "+d.s_data.get(date).toString());
+-        }
+-        local_d=new StoredData(activityStrings);
+-        
+-
+-    }
+-
+-    @NonNull
+-    @Override
+-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout,parent,false);
+-        return new ViewHolder(v);
+-    }
+-
+-    @Override
+-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+-        AbstractActivities a=local_d.activities.get(position);
+-        Log.d(TAG, "onBindViewHolder: activity_created"+ a.getClass());
+-        //Log.d(TAG, "onBindViewHolder: transportation_activity_test"+((TransportActivities)a).vehicle);
+-
+-        String activityType = "";
+-        String subSubType="";
+-        holder.subType.setText(a.sub_type);
+-        holder.value.setText("" + a.value);
+-        if(a.getClass()==TransportActivities.class){
+-            activityType="Transportation";
+-            if(a.sub_type=="car"){
+-                subSubType=((TransportActivities) a).vehicle;
+-            }else if(a.sub_type=="plane"){
+-                if(((TransportActivities) a).is_long_haul_flight){
+-                    subSubType="long haul";
+-                }else{
+-                    subSubType="short haul";
+-                }
+-            }
+-        } else if (a.getClass()==ShoppingActivities.class) {
+-            activityType="Shopping";
+-        }else if (a.getClass()==FoodConsumptionActivities.class){
+-            activityType="Food";
+-        }else if(a.getClass()==MonthlyBillActivities.class){
+-            activityType="Monthly Bill";
+-        }
+-        holder.activityType.setText(activityType);
+-        holder.sub_sub_type.setText(subSubType);
+-        if(activityType.equals("Monthly Bill")){
+-            holder.editButton.setVisibility(View.GONE);
+-            holder.deleteButton.setVisibility(View.GONE);
+-        }
+-
+-        //TODO:finish the two buttons
+-        holder.editButton.setOnClickListener(v->{
+-            Intent intent = null;
+-            if(a.getClass()==TransportActivities.class){
+-                intent=new Intent(context,TransportationPageActivity.class);
+-            } else if (a.getClass()==ShoppingActivities.class) {
+-                intent=new Intent(context,ShoppingPageActivity.class);
+-            } else if (a.getClass()==FoodConsumptionActivities.class) {
+-                intent=new Intent(context,FoodPageActivity.class);
+-            }
+-
+-            intent.putExtra("date",date);
+-            d.delete_activity(a);
+-            refresh_local_dataset();
+-            notifyItemRemoved(position);
+-            TextView CO2TextView=externalCO2TextView.get();
+-            CO2TextView.setText("Total Emissions Today: "+(int)d.getCO2(date)+" Kg");
+-            context.startActivity(intent);
+-
+-        });
+-        holder.deleteButton.setOnClickListener(v->{
+-            d.delete_activity(a);
+-            refresh_local_dataset();
+-            notifyItemRemoved(position);
+-            TextView CO2TextView=externalCO2TextView.get();
+-            CO2TextView.setText("Total Emissions Today: "+(int)d.getCO2(date)+" Kg");
+-        });
+-
+-    }
+-
+-    @Override
+-    public int getItemCount() {
+-        return local_d.activities.size();
+-    }
+-
+-    public void setExternalCO2TextView(TextView textView){
+-        this.externalCO2TextView=new WeakReference<>(textView);
+-    }
+-    private void refresh_local_dataset(){
+-        Map<String,List<List<String>>>activityStrings=new HashMap<>();
+-        Log.d(TAG, "EcoTrackerRecyclerAdapter: read s_data"+d.s_data.toString());
+-        if(d.s_data.containsKey(date)){
+-            activityStrings.put(date,d.s_data.get(date));
+-            Log.d(TAG, "EcoTrackerRecyclerAdapter: "+d.s_data.get(date).toString());
+-        }
+-        local_d=new StoredData(activityStrings);
+-
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/FoodPageActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/FoodPageActivity.java b/app/src/main/java/com/Plantze/tracker/FoodPageActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/FoodPageActivity.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,70 +0,0 @@
+-package com.Plantze.tracker;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.view.View;
+-import android.widget.AdapterView;
+-import android.widget.Button;
+-import android.widget.EditText;
+-import android.widget.Spinner;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-public class FoodPageActivity extends AppCompatActivity {
+-    private EditText editServings;
+-    private Spinner spinner;
+-    private Button saveButton;
+-    private String food;
+-    private String date;
+-    private StoredData d;
+-    @Override
+-    public void onCreate(Bundle savedInstanceState){
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_input_food);
+-        editServings=findViewById(R.id.foodPageEditText);
+-        saveButton=findViewById(R.id.foodPageSaveButton);
+-        spinner= findViewById(R.id.spinnerfoodPage);
+-        d=EcoTrackerApplication.getInstance(this).getStoredData();
+-        date=getIntent().getStringExtra("date");
+-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+-            @Override
+-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+-                switch (position){
+-                    case 0:
+-                        food="beef";
+-                        break;
+-                    case 1:
+-                        food="pork";
+-                        break;
+-                    case 2:
+-                        food="chicken";
+-                        break;
+-                    case 3:
+-                        food="fish";
+-                        break;
+-                }
+-            }
+-
+-            @Override
+-            public void onNothingSelected(AdapterView<?> parent) {
+-
+-            }
+-        });
+-        saveButton.setOnClickListener(v->{
+-            int servings = 0;
+-            try{
+-                servings=Integer.parseInt(editServings.getText().toString().trim());
+-            }catch (Exception e){
+-                e.printStackTrace();
+-            }
+-            FoodConsumptionActivities a=new FoodConsumptionActivities(food,servings);
+-            BillPageActivity.writeDate(a,date);
+-            d.single_write_to_mapping(a);
+-
+-            Intent intent =new Intent(this,EcoTrackerActivity.class);
+-            intent.putExtra("date",date);
+-            startActivity(intent);
+-
+-        });
+-    }
+-}
+Index: app/src/main/java/com/Plantze/tracker/FoodConsumptionActivities.java
+===================================================================
+diff --git a/app/src/main/java/com/Plantze/tracker/FoodConsumptionActivities.java b/app/src/main/java/com/Plantze/tracker/FoodConsumptionActivities.java
+deleted file mode 100644
+--- a/app/src/main/java/com/Plantze/tracker/FoodConsumptionActivities.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ /dev/null	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
+@@ -1,39 +0,0 @@
+-package com.Plantze.tracker;
+-
+-public class FoodConsumptionActivities extends AbstractActivities{
+-    public FoodConsumptionActivities(String s, int value) {
+-        super(s, value);
+-    }
+-
+-    private int filter_values(int a, int b, int c){
+-        if(value<=2){
+-            return a;
+-        }else if(value<=5){
+-            return b;
+-        }else{
+-            return c;
+-        }
+-    }
+-    public double calculateCO2(){
+-        CO2=0;
+-        if(value==0){
+-            CO2=0;
+-            return CO2;
+-        }
+-        switch(sub_type){
+-            case "beef":
+-                CO2+=filter_values(1300,1900,2500);
+-                break;
+-            case "pork":
+-                CO2+=filter_values(450,860,1450);
+-                break;
+-            case "chicken":
+-                CO2+=filter_values(200,600,950);
+-                break;
+-            case "fish":
+-                CO2+=filter_values(150,500,800);
+-                break;
+-        }
+-        return CO2;
+-    }
+-}

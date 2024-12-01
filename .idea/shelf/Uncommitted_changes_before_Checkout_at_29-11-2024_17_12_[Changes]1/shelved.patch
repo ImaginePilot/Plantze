@@ -1,0 +1,18 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:name=\".EcoTrackerApplication\"\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.B07DemoSummer2024\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\"com.example.LoginPage.GetLocation\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.Global_emission_result\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.annualConsumption\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.Registration\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.Login\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.StartPage\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".CalendarActivity\" android:exported=\"false\" />\r\n        <activity android:name=\".EcoTrackerActivity\" android:exported=\"false\" />\r\n        <activity android:name=\".TransportationPageActivity\" android:exported=\"false\"/>\r\n        <activity android:name=\".BillPageActivity\" android:exported=\"false\"/>\r\n        <activity android:name=\".FoodPageActivity\" android:exported=\"false\"/>\r\n        <activity android:name=\".ShoppingPageActivity\" android:exported=\"false\"/>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/AndroidManifest.xml	(date 1732917861537)
+@@ -3,7 +3,6 @@
+     xmlns:tools="http://schemas.android.com/tools">
+ 
+     <application
+-        android:name=".EcoTrackerApplication"
+         android:allowBackup="true"
+         android:dataExtractionRules="@xml/data_extraction_rules"
+         android:fullBackupContent="@xml/backup_rules"

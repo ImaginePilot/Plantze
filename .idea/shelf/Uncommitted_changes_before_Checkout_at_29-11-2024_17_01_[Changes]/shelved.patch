@@ -1,0 +1,248 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:name=\".EcoTrackerApplication\"\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.B07DemoSummer2024\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\"com.example.LoginPage.GetLocation\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.Global_emission_result\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.annualConsumption\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.Registration\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.Login\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\"com.example.LoginPage.StartPage\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".CalendarActivity\" android:exported=\"false\" />\r\n        <activity android:name=\".EcoTrackerActivity\" android:exported=\"false\" />\r\n        <activity android:name=\".TransportationPageActivity\" android:exported=\"false\"/>\r\n        <activity android:name=\".BillPageActivity\" android:exported=\"false\"/>\r\n        <activity android:name=\".FoodPageActivity\" android:exported=\"false\"/>\r\n        <activity android:name=\".ShoppingPageActivity\" android:exported=\"false\"/>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/AndroidManifest.xml	(date 1732917524753)
+@@ -37,12 +37,7 @@
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+-        <activity android:name=".CalendarActivity" android:exported="false" />
+-        <activity android:name=".EcoTrackerActivity" android:exported="false" />
+-        <activity android:name=".TransportationPageActivity" android:exported="false"/>
+-        <activity android:name=".BillPageActivity" android:exported="false"/>
+-        <activity android:name=".FoodPageActivity" android:exported="false"/>
+-        <activity android:name=".ShoppingPageActivity" android:exported="false"/>
++
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/example/LoginPage/annualConsumption.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.LoginPage;\r\n\r\nimport android.content.Intent;\r\nimport android.graphics.Color;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\nimport com.example.b07demosummer2024.R;\r\n\r\npublic class annualConsumption extends AppCompatActivity implements View.OnClickListener{\r\n\r\n    private Button[] answers = new Button[6];\r\n    private Button Next;\r\n    private TextView question;\r\n    public int CurrentQuestion = 0;\r\n    public AnnualConsumptionModel Data = new AnnualConsumptionModel();\r\n    public UserData User_Data = new UserData();\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        setContentView(R.layout.activity_annual_consumption);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n\r\n            User_Data = (UserData) getIntent().getSerializableExtra(\"Data\"); //Obtaining data\r\n\r\n\r\n            answers[0] = (android.widget.Button) findViewById(R.id.choice_a);\r\n            answers[0].setText(Data.answerChoices[0][0]);\r\n\r\n            answers[1] = (android.widget.Button) findViewById(R.id.choice_b);\r\n            answers[1].setText(Data.answerChoices[0][1]);\r\n\r\n            answers[2] = (android.widget.Button) findViewById(R.id.choice_c);\r\n            answers[2].setVisibility(View.INVISIBLE);\r\n\r\n            answers[3] = (android.widget.Button) findViewById(R.id.choice_d);\r\n            answers[3].setVisibility(View.INVISIBLE);\r\n\r\n            answers[4] = (android.widget.Button) findViewById(R.id.choice_e);\r\n            answers[4].setVisibility(View.INVISIBLE);\r\n\r\n            answers[5] = (android.widget.Button) findViewById(R.id.choice_f);\r\n            answers[5].setVisibility(View.INVISIBLE);\r\n\r\n            question = (android.widget.TextView) findViewById(R.id.question);\r\n            question.setText(Data.getQuestion(0));\r\n\r\n            answers[0].setOnClickListener((View.OnClickListener) this);\r\n            answers[1].setOnClickListener((View.OnClickListener) this);\r\n            answers[2].setOnClickListener((View.OnClickListener) this);\r\n            answers[3].setOnClickListener((View.OnClickListener) this);\r\n            answers[4].setOnClickListener((View.OnClickListener) this);\r\n            answers[5].setOnClickListener((View.OnClickListener) this);\r\n            Next = (android.widget.Button) findViewById(R.id.next);\r\n            Next.setOnClickListener((View.OnClickListener) this);\r\n\r\n            return insets;\r\n        });\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onClick(View v) {\r\n        answers[0].setBackgroundColor(Color.GRAY);\r\n        answers[1].setBackgroundColor(Color.GRAY);\r\n        answers[2].setBackgroundColor(Color.GRAY);\r\n        answers[3].setBackgroundColor(Color.GRAY);\r\n        answers[4].setBackgroundColor(Color.GRAY);\r\n        answers[5].setBackgroundColor(Color.GRAY);\r\n        Button ClickedButton = (Button) v;\r\n        if (!(ClickedButton.getId() == R.id.next)) {\r\n\r\n            ClickedButton.setBackgroundColor(Color.GREEN);\r\n            if (ClickedButton.getId() == R.id.choice_a) {\r\n                User_Data.UserAnswers[CurrentQuestion] = 1;\r\n            }\r\n            if (ClickedButton.getId() == R.id.choice_b){\r\n                User_Data.UserAnswers[CurrentQuestion] = 2;\r\n            }\r\n            if (ClickedButton.getId() == R.id.choice_c){\r\n                User_Data.UserAnswers[CurrentQuestion] = 3;\r\n            }\r\n            if (ClickedButton.getId() == R.id.choice_d) {\r\n                User_Data.UserAnswers[CurrentQuestion] = 4;\r\n            }\r\n            if (ClickedButton.getId() == R.id.choice_e){\r\n                if(CurrentQuestion == 1)\r\n                    User_Data.UserAnswers[CurrentQuestion] = 2;\r\n                else if(CurrentQuestion == 13)\r\n                    User_Data.UserAnswers[CurrentQuestion] = 3;\r\n                else\r\n                    User_Data.UserAnswers[CurrentQuestion] = 5;\r\n\r\n                }\r\n            if (ClickedButton.getId() == R.id.choice_f) {\r\n                if(CurrentQuestion == 16 || CurrentQuestion == 18)\r\n                    User_Data.UserAnswers[CurrentQuestion] = 1;\r\n                else\r\n                    User_Data.UserAnswers[CurrentQuestion] = 6;\r\n            }\r\n        }\r\n        if (ClickedButton.getId() == R.id.next) {\r\n            // Toast.makeText(this,User_Data.UserAnswers[CurrentQuestion],Toast.LENGTH_LONG).show();\r\n            if (CurrentQuestion == 23) {\r\n                Intent intent = new Intent(annualConsumption.this, Global_emission_result.class);\r\n                intent.putExtra(\"Data\", User_Data);\r\n                startActivity(intent);\r\n            }\r\n            else if(CurrentQuestion == 0 && User_Data.UserAnswers[0]==2)\r\n                {CurrentQuestion = CurrentQuestion+3;}\r\n            else if (CurrentQuestion == 7 && (User_Data.UserAnswers[7] == 1 || User_Data.UserAnswers[7] ==2 || User_Data.UserAnswers[7] == 3))\r\n                 {CurrentQuestion = CurrentQuestion+5;}\r\n\r\n             else {\r\n                CurrentQuestion++;\r\n            }\r\n                answers[0].setVisibility(View.INVISIBLE);\r\n                answers[1].setVisibility(View.INVISIBLE);\r\n                answers[2].setVisibility(View.INVISIBLE);\r\n                answers[3].setVisibility(View.INVISIBLE);\r\n                answers[4].setVisibility(View.INVISIBLE);\r\n                answers[5].setVisibility(View.INVISIBLE);\r\n                question.setText(Data.getQuestion(CurrentQuestion));\r\n                if (1 <= Data.getAnswerChoices(CurrentQuestion).length) {\r\n                    answers[0].setText(Data.getAnswerChoices(CurrentQuestion)[0]);\r\n                    answers[0].setVisibility(View.VISIBLE);\r\n                }\r\n                if (2 <= Data.getAnswerChoices(CurrentQuestion).length) {\r\n                    answers[1].setText(Data.getAnswerChoices(CurrentQuestion)[1]);\r\n                    answers[1].setVisibility(View.VISIBLE);\r\n                }\r\n                if (3 <= Data.getAnswerChoices(CurrentQuestion).length) {\r\n                    answers[2].setText(Data.getAnswerChoices(CurrentQuestion)[2]);\r\n                    answers[2].setVisibility(View.VISIBLE);\r\n                }\r\n                if (4 <= Data.getAnswerChoices(CurrentQuestion).length) {\r\n                    answers[3].setText(Data.getAnswerChoices(CurrentQuestion)[3]);\r\n                    answers[3].setVisibility(View.VISIBLE);\r\n                }\r\n                if (5 <= Data.getAnswerChoices(CurrentQuestion).length) {\r\n                    answers[4].setText(Data.getAnswerChoices(CurrentQuestion)[4]);\r\n                    answers[4].setVisibility(View.VISIBLE);\r\n                }\r\n                if (6 <= Data.getAnswerChoices(CurrentQuestion).length) {\r\n                    answers[5].setText(Data.getAnswerChoices(CurrentQuestion)[5]);\r\n                    answers[5].setVisibility(View.VISIBLE);\r\n                }\r\n\r\n            }\r\n        }\r\n\r\n    }\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/LoginPage/annualConsumption.java b/app/src/main/java/com/example/LoginPage/annualConsumption.java
+--- a/app/src/main/java/com/example/LoginPage/annualConsumption.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/java/com/example/LoginPage/annualConsumption.java	(date 1732917006998)
+@@ -13,7 +13,8 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
+-import com.example.b07demosummer2024.R;
++import com.Plantze.tracker.R;
++
+ 
+ public class annualConsumption extends AppCompatActivity implements View.OnClickListener{
+ 
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    //alias(libs.plugins.android.application)\r\n    //alias(libs.plugins.google.gms.google.services)\r\n    // Add the dependency for the Google services Gradle plugin\r\n    id(\"com.android.application\")\r\n    id(\"com.google.gms.google-services\")\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.Plantze.tracker\"\r\n    compileSdk = 34\r\n    testOptions {\r\n        unitTests.isReturnDefaultValues = true\r\n    }\r\n    defaultConfig {\r\n        applicationId = \"com.Plantze.tracker\"\r\n        minSdk = 24\r\n        targetSdk = 34\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(getDefaultProguardFile(\"proguard-android-optimize.txt\"), \"proguard-rules.pro\")\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation(libs.appcompat)\r\n    implementation(libs.material)\r\n    implementation(libs.activity)\r\n    implementation(libs.constraintlayout)\r\n    implementation(libs.firebase.database)\r\n    implementation(libs.firebase.storage)\r\n    implementation(\"androidx.recyclerview:recyclerview\")\r\n\r\n    testImplementation(libs.junit)\r\n    androidTestImplementation(libs.ext.junit)\r\n    androidTestImplementation(libs.espresso.core)\r\n    implementation(\"com.fasterxml.jackson.core:jackson-databind:2.12.3\")\r\n    implementation(platform(\"com.google.firebase:firebase-bom:33.5.1\"))\r\n    implementation(\"com.google.firebase:firebase-analytics\")\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/build.gradle.kts	(date 1732916668587)
+@@ -14,7 +14,7 @@
+     }
+     defaultConfig {
+         applicationId = "com.Plantze.tracker"
+-        minSdk = 24
++        minSdk = 26
+         targetSdk = 34
+         versionCode = 1
+         versionName = "1.0"
+@@ -36,6 +36,11 @@
+ }
+ 
+ dependencies {
++    implementation(libs.firebase.auth)
++    testImplementation ("org.mockito:mockito-core:3.+")
++    implementation("org.apache.poi:poi:5.2.5")
++    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
++    implementation("com.google.firebase:firebase-analytics")
+ 
+     implementation(libs.appcompat)
+     implementation(libs.material)
+Index: app/src/main/java/com/example/LoginPage/GetLocation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.LoginPage;\r\n\r\nimport static java.lang.Double.parseDouble;\r\n\r\nimport android.content.Intent;\r\nimport android.content.res.AssetManager;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.Button;\r\nimport android.widget.Spinner;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\nimport com.example.b07demosummer2024.R;\r\n\r\nimport org.apache.poi.ss.usermodel.Row;\r\nimport org.apache.poi.ss.usermodel.Sheet;\r\nimport org.apache.poi.ss.usermodel.Workbook;\r\nimport org.apache.poi.ss.usermodel.WorkbookFactory;\r\n\r\nimport java.io.IOException;\r\nimport java.io.InputStream;\r\nimport java.util.ArrayList;\r\nimport java.util.Iterator;\r\n\r\npublic class GetLocation extends AppCompatActivity {\r\n\r\n    public UserData Data = new UserData();\r\n    Button Next;\r\n    Spinner CountryList;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        setContentView(R.layout.activity_get_location);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n\r\n            CountryList = (android.widget.Spinner)findViewById(R.id.spinner);\r\n            Next = (android.widget.Button)findViewById(R.id.gc);\r\n\r\n            String Email = getIntent().getStringExtra(\"Email\");\r\n            Data.Email = getEmailpart(Email);\r\n\r\n            ArrayList<String> countries_list = new ArrayList<>();\r\n            ArrayList<String> emissions_list = new ArrayList<>();\r\n            AssetManager assetManager = getAssets();\r\n            InputStream inputStream = null;\r\n            try {\r\n                inputStream = assetManager.open(\"Global_averages - Copy.xls\");\r\n                Workbook workbook = WorkbookFactory.create(inputStream);\r\n                Sheet sheet = workbook.getSheetAt(0);\r\n                Iterator<Row> rowIterator = sheet.iterator();\r\n                rowIterator.next();\r\n                while (rowIterator.hasNext()) {\r\n                    Row row = rowIterator.next();\r\n                    countries_list.add(row.getCell(0).toString());\r\n\r\n                    emissions_list.add(row.getCell(1).toString());\r\n                }\r\n            } catch (IOException e) {\r\n                throw new RuntimeException(e);\r\n            }\r\n\r\n\r\n            ArrayAdapter<String> adpater = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,countries_list);\r\n            CountryList.setAdapter(adpater);\r\n            Next.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    int SelectedCountry = CountryList.getSelectedItemPosition();\r\n                    Data.Location = countries_list.get(SelectedCountry);\r\n                    Data.Country_Emissions = parseDouble(emissions_list.get(SelectedCountry));\r\n                    Intent intent = new Intent(GetLocation.this, annualConsumption.class);\r\n                    intent.putExtra(\"Data\", Data);\r\n                    startActivity(intent);\r\n                }\r\n            });\r\n\r\n            return insets;\r\n        });\r\n    }\r\n    String getEmailpart(String Email){\r\n        return Email.substring(0,Email.length()-4);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/LoginPage/GetLocation.java b/app/src/main/java/com/example/LoginPage/GetLocation.java
+--- a/app/src/main/java/com/example/LoginPage/GetLocation.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/java/com/example/LoginPage/GetLocation.java	(date 1732917006986)
+@@ -16,7 +16,7 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
+-import com.example.b07demosummer2024.R;
++
+ 
+ import org.apache.poi.ss.usermodel.Row;
+ import org.apache.poi.ss.usermodel.Sheet;
+@@ -28,6 +28,8 @@
+ import java.util.ArrayList;
+ import java.util.Iterator;
+ 
++import com.Plantze.tracker.R;
++
+ public class GetLocation extends AppCompatActivity {
+ 
+     public UserData Data = new UserData();
+Index: app/src/main/java/com/example/LoginPage/Global_emission_result.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.LoginPage;\r\n\r\nimport static java.lang.Double.parseDouble;\r\n\r\nimport android.content.res.AssetManager;\r\nimport android.os.Bundle;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\nimport org.apache.poi.ss.usermodel.Row;\r\nimport org.apache.poi.ss.usermodel.Sheet;\r\nimport org.apache.poi.ss.usermodel.Workbook;\r\nimport org.apache.poi.ss.usermodel.WorkbookFactory;\r\nimport org.apache.poi.ss.util.CellAddress;\r\n\r\nimport com.example.b07demosummer2024.R;\r\nimport com.google.firebase.database.DatabaseReference;\r\nimport com.google.firebase.database.FirebaseDatabase;\r\n\r\nimport java.io.IOException;\r\nimport java.io.InputStream;\r\n\r\npublic class Global_emission_result extends AppCompatActivity {\r\n\r\n    TextView transport,publicT,privateT,flights;\r\n    TextView food,beef,pork,chicken,fish,leftovers;\r\n    TextView housing,renewable;\r\n    TextView consumption,clothes,secondhand,electronics,recycle;\r\n    TextView TotalComparision;\r\n    UserData User_Data = new UserData();\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        setContentView(R.layout.activity_global_emission_result);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n\r\n            User_Data = (UserData) getIntent().getSerializableExtra(\"Data\"); //Obtaining data\r\n            User_Data.Housing = parseDouble(ComputeHousing(User_Data.UserAnswers));\r\n            User_Data.compute_results();\r\n            transport = findViewById(R.id.Transportation);\r\n            publicT = findViewById(R.id.PublicTransportation);\r\n            privateT = findViewById(R.id.PersonalVehicle);\r\n            flights = findViewById(R.id.Flights);\r\n\r\n            food = findViewById(R.id.Food);\r\n            beef = findViewById(R.id.Beef);\r\n            pork = findViewById(R.id.Pork);\r\n            chicken= findViewById(R.id.Chicken);\r\n            fish = findViewById(R.id.Fish);\r\n            leftovers = findViewById(R.id.LeftOvers);\r\n\r\n            housing= findViewById(R.id.Housing);\r\n            renewable = findViewById(R.id.RenewableEnergy);\r\n\r\n            consumption = findViewById(R.id.Consumption);\r\n            clothes = findViewById(R.id.Clothes);\r\n            secondhand = findViewById(R.id.SecondHandGoods);\r\n            electronics = findViewById(R.id.Electronics);\r\n            recycle = findViewById(R.id.Recycle);\r\n\r\n            TotalComparision = findViewById(R.id.TotalComparision);\r\n\r\n\r\n            transport.setText(\"Emissions from transportation breakdown: \"+User_Data.Transportation);\r\n            publicT.setText(\"Emissions from car: \"+User_Data.personal_vehicle);\r\n            privateT.setText(\"Emissions from Public transport\"+User_Data.public_Transportation);\r\n            flights.setText(\"Emission by flights: \"+User_Data.flights);\r\n\r\n            food.setText(\"Emissions by food breakdown: \"+User_Data.Food);\r\n            beef.setText(\"Emission by beef: \"+User_Data.Beef);\r\n            pork.setText(\"Emissions by pork: \"+User_Data.Pork);\r\n            chicken.setText(\"Emissions by chicken: \"+User_Data.Chicken);\r\n            fish.setText(\"Emissions by fish: \"+User_Data.Fish);\r\n            leftovers.setText(\"Emissions from leftovers: \"+User_Data.Leftovers);\r\n\r\n            housing.setText(\"Emissions by housing breakdown: \"+ComputeHousing(User_Data.UserAnswers));\r\n            renewable.setText(\"Emissions decrease by renewable: \"+User_Data.RenewableEnergy);\r\n\r\n            consumption.setText(\"Emissions by consumption breakdown: \"+User_Data.Consumption);\r\n            clothes.setText(\"Emissions by clothes :\"+User_Data.Clothes);\r\n            secondhand.setText(\"Emissions by reduction eco friendly goods: \"+User_Data.SecondHand);\r\n            electronics.setText(\"Emissions by electronics: \"+User_Data.Electronics);\r\n            recycle.setText(\"Emissions reduction by recycle: \"+User_Data.Consumption1);\r\n\r\n            TotalComparision.setText(User_Data.getMessage());\r\n\r\n            final FirebaseDatabase database = FirebaseDatabase.getInstance();\r\n            DatabaseReference ref = database.getReference().child(\"AnnualEmissionsData\");\r\n            FirebaseUserData Data = new FirebaseUserData(User_Data.Transportation,User_Data.Food,User_Data.Housing,User_Data.Consumption);\r\n            ref.child(User_Data.Email).setValue(Data);\r\n\r\n\r\n            return insets;\r\n        });\r\n    }\r\n\r\n    String ComputeHousing(int [] UserAnswers){\r\n        //double housing = 0;\r\n        int TypeofHome = 4;\r\n        int SizeofHome = 3;\r\n        int NofOccupants = 4;\r\n        int HeatingType = 5;\r\n        int ElectrictyBill = 5;\r\n        String [][][][][] Housing_Computation_array = new String[TypeofHome][SizeofHome][NofOccupants][ElectrictyBill][HeatingType];\r\n        AssetManager assetManager = getAssets();\r\n        InputStream inputStream = null;\r\n        try {\r\n            CellAddress cellAdress = new CellAddress(\"C13\");\r\n            inputStream = assetManager.open(\"Copy of Formulas.xls\");\r\n            Workbook workbook = WorkbookFactory.create(inputStream);\r\n            Sheet sheet = workbook.getSheetAt(2);\r\n            int rowStart = 0; // POI rows are 0 based\r\n            int rowEnd = 48;\r\n            int colStart = 0;\r\n            int colEnd = 24;\r\n            int rowcounter = 0;\r\n            //No of choices for each question\r\n\r\n\r\n            //Counter for eacho one of them\r\n            int TH_ct = 0;\r\n            int SH_ct = 0;\r\n            int NofOcc_ct = 0;\r\n            int Heat_ct = 0;\r\n            int Elect_ct = 0;\r\n            int rowNum = rowStart;\r\n            int cn = 0;\r\n            while(rowNum<rowEnd) {\r\n                Row r = sheet.getRow(rowNum);\r\n                Heat_ct=0;\r\n                Elect_ct=0;\r\n                //  NofOcc_ct=0;\r\n                cn =0;\r\n                while(cn < 25){\r\n                    if(Heat_ct == 5) {\r\n                        Heat_ct = 0;\r\n                        Elect_ct++;\r\n                    }\r\n                    Housing_Computation_array[TH_ct][SH_ct][NofOcc_ct][Elect_ct][Heat_ct] = r.getCell(cn).toString();\r\n                    Heat_ct++;\r\n\r\n                    cn++;\r\n                }\r\n                rowcounter++;\r\n                rowNum++;\r\n                NofOcc_ct++;\r\n                if(rowcounter == 4){\r\n                    NofOcc_ct =0;\r\n                    rowcounter=0;\r\n                    SH_ct++;\r\n                    if(SH_ct == 3) {\r\n                        SH_ct = 0;\r\n                        if(TH_ct < 4) {\r\n                            TH_ct++;\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n        return Housing_Computation_array[UserAnswers[13]-1][UserAnswers[15]-1][UserAnswers[14]-1][UserAnswers[17]-1][UserAnswers[16]-1];\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/LoginPage/Global_emission_result.java b/app/src/main/java/com/example/LoginPage/Global_emission_result.java
+--- a/app/src/main/java/com/example/LoginPage/Global_emission_result.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/java/com/example/LoginPage/Global_emission_result.java	(date 1732917006939)
+@@ -18,13 +18,15 @@
+ import org.apache.poi.ss.usermodel.WorkbookFactory;
+ import org.apache.poi.ss.util.CellAddress;
+ 
+-import com.example.b07demosummer2024.R;
++
+ import com.google.firebase.database.DatabaseReference;
+ import com.google.firebase.database.FirebaseDatabase;
+ 
+ import java.io.IOException;
+ import java.io.InputStream;
+ 
++import com.Plantze.tracker.R;
++
+ public class Global_emission_result extends AppCompatActivity {
+ 
+     TextView transport,publicT,privateT,flights;
+Index: app/src/main/java/com/example/LoginPage/Login.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.LoginPage;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\nimport com.example.b07demosummer2024.R;\r\n\r\npublic class Login extends AppCompatActivity implements MainActivityContract.Login {\r\n\r\n    MainActivityPresenter presenter;\r\n    private Button login;\r\n    private Button forgotPassword;\r\n\r\n    private EditText Email;\r\n    private EditText Password;\r\n    private TextView message;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        setContentView(R.layout.activity_login);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n\r\n            presenter = new MainActivityPresenter(this,null,new Model());\r\n\r\n            Email = findViewById(R.id.Email);\r\n            Password = findViewById(R.id.Password);\r\n            message = findViewById(R.id.Message);\r\n            forgotPassword = findViewById(R.id.ForgotPassword);\r\n            forgotPassword.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    presenter.ForgotPassword();\r\n                }\r\n            });\r\n\r\n\r\n            login = findViewById(R.id.Login);\r\n            login.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    presenter.login();\r\n                }\r\n            });\r\n\r\n            return insets;\r\n        });\r\n    }\r\n\r\n    public String getEmail()\r\n    {\r\n        String email = Email.getText().toString();\r\n        return email;\r\n    }\r\n    public String getPassword()\r\n    {\r\n        String password = Password.getText().toString();\r\n        return password;\r\n    }\r\n\r\n    public void DisplayMessage(String Message)\r\n    {\r\n        message.setText(Message);\r\n    }\r\n\r\n    public void NextActivity(String Email){\r\n\r\n        Intent fp=new Intent(getApplicationContext(),GetLocation.class);\r\n        fp.putExtra(\"Email\",Email);\r\n        startActivity(fp);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/LoginPage/Login.java b/app/src/main/java/com/example/LoginPage/Login.java
+--- a/app/src/main/java/com/example/LoginPage/Login.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/java/com/example/LoginPage/Login.java	(date 1732917007006)
+@@ -13,7 +13,7 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
+-import com.example.b07demosummer2024.R;
++import com.Plantze.tracker.R;
+ 
+ public class Login extends AppCompatActivity implements MainActivityContract.Login {
+ 
+Index: app/src/main/java/com/example/LoginPage/Registration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.LoginPage;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\nimport com.example.b07demosummer2024.R;\r\n\r\npublic class Registration extends AppCompatActivity implements MainActivityContract.Register {\r\n\r\n    MainActivityPresenter presenter;\r\n    private Button Register;\r\n    private EditText Name;\r\n    private EditText Email_RP;\r\n    private EditText Password_RP, ConfirmPassword;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        setContentView(R.layout.activity_registration);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n\r\n            Name = (android.widget.EditText) findViewById(R.id.Name);\r\n\r\n            Email_RP = (android.widget.EditText) findViewById(R.id.Email);\r\n\r\n            Model model = new Model();\r\n            presenter = new MainActivityPresenter(null,this,model);\r\n            Password_RP = (android.widget.EditText) findViewById(R.id.Password);\r\n            ConfirmPassword = (android.widget.EditText) findViewById(R.id.ConfirmPassword);\r\n            Register = (android.widget.Button) findViewById(R.id.Register);\r\n            Register.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    presenter.signup();\r\n                }\r\n            });\r\n\r\n            return insets;\r\n        });\r\n    }\r\n    public String getEmail1(){\r\n        return Email_RP.getText().toString();\r\n    }\r\n    public  String getPassword1(){\r\n        return Password_RP.getText().toString();\r\n    }\r\n    public String getConfirmPassword(){\r\n        return ConfirmPassword.getText().toString();\r\n    }\r\n    public void MakeToast(String message)\r\n    {\r\n        Toast.makeText(this,message,Toast.LENGTH_LONG).show();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/LoginPage/Registration.java b/app/src/main/java/com/example/LoginPage/Registration.java
+--- a/app/src/main/java/com/example/LoginPage/Registration.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/java/com/example/LoginPage/Registration.java	(date 1732917006972)
+@@ -11,8 +11,7 @@
+ import androidx.core.graphics.Insets;
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+-
+-import com.example.b07demosummer2024.R;
++import com.Plantze.tracker.R;
+ 
+ public class Registration extends AppCompatActivity implements MainActivityContract.Register {
+ 
+Index: app/src/main/java/com/example/LoginPage/StartPage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.LoginPage;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\nimport com.example.b07demosummer2024.R;\r\n\r\npublic class StartPage extends AppCompatActivity {\r\n    Button Login,Signup;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        setContentView(R.layout.activity_start_page);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n            Login = (android.widget.Button) findViewById(R.id.Login);\r\n            Signup = (android.widget.Button) findViewById(R.id.SignUp);\r\n            Login.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    Intent fp=new Intent(getApplicationContext(),Login.class);\r\n                    startActivity(fp);\r\n                }\r\n            });\r\n            Signup.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    Intent fp=new Intent(getApplicationContext(),Registration.class);\r\n                    startActivity(fp);\r\n                }\r\n            });\r\n            return insets;\r\n        });\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/LoginPage/StartPage.java b/app/src/main/java/com/example/LoginPage/StartPage.java
+--- a/app/src/main/java/com/example/LoginPage/StartPage.java	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/java/com/example/LoginPage/StartPage.java	(date 1732917040597)
+@@ -11,7 +11,8 @@
+ import androidx.core.view.ViewCompat;
+ import androidx.core.view.WindowInsetsCompat;
+ 
+-import com.example.b07demosummer2024.R;
++import com.Plantze.tracker.R;
++
+ 
+ public class StartPage extends AppCompatActivity {
+     Button Login,Signup;
+Index: gradle/libs.versions.toml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[versions]\r\nagp = \"8.4.1\"\r\njunit = \"4.13.2\"\r\njunitVersion = \"1.1.5\"\r\nespressoCore = \"3.5.1\"\r\nappcompat = \"1.6.1\"\r\nmaterial = \"1.10.0\"\r\nactivity = \"1.8.0\"\r\nconstraintlayout = \"2.1.4\"\r\ngoogleGmsGoogleServices = \"4.4.2\"\r\nfirebaseDatabase = \"21.0.0\"\r\nfirebaseStorage = \"21.0.1\"\r\n\r\n[libraries]\r\njunit = { group = \"junit\", name = \"junit\", version.ref = \"junit\" }\r\next-junit = { group = \"androidx.test.ext\", name = \"junit\", version.ref = \"junitVersion\" }\r\nespresso-core = { group = \"androidx.test.espresso\", name = \"espresso-core\", version.ref = \"espressoCore\" }\r\nappcompat = { group = \"androidx.appcompat\", name = \"appcompat\", version.ref = \"appcompat\" }\r\nmaterial = { group = \"com.google.android.material\", name = \"material\", version.ref = \"material\" }\r\nactivity = { group = \"androidx.activity\", name = \"activity\", version.ref = \"activity\" }\r\nconstraintlayout = { group = \"androidx.constraintlayout\", name = \"constraintlayout\", version.ref = \"constraintlayout\" }\r\nfirebase-database = { group = \"com.google.firebase\", name = \"firebase-database\", version.ref = \"firebaseDatabase\" }\r\nfirebase-storage = { group = \"com.google.firebase\", name = \"firebase-storage\", version.ref = \"firebaseStorage\" }\r\n\r\n[plugins]\r\nandroid-application = { id = \"com.android.application\", version.ref = \"agp\" }\r\ngoogle-gms-google-services = { id = \"com.google.gms.google-services\", version.ref = \"googleGmsGoogleServices\" }\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+--- a/gradle/libs.versions.toml	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/gradle/libs.versions.toml	(date 1732916668126)
+@@ -10,6 +10,7 @@
+ googleGmsGoogleServices = "4.4.2"
+ firebaseDatabase = "21.0.0"
+ firebaseStorage = "21.0.1"
++firebaseAuth = "23.1.0"
+ 
+ [libraries]
+ junit = { group = "junit", name = "junit", version.ref = "junit" }
+@@ -21,6 +22,7 @@
+ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+ firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+ firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
++firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+ 
+ [plugins]
+ android-application = { id = "com.android.application", version.ref = "agp" }
+Index: app/src/main/res/mipmap-anydpi-v26/action_round.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <background android:drawable=\"@color/action_background\"/>\r\n    <foreground android:drawable=\"@drawable/action_foreground\"/>\r\n</adaptive-icon>
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/action_round.xml b/app/src/main/res/mipmap-anydpi-v26/action_round.xml
+--- a/app/src/main/res/mipmap-anydpi-v26/action_round.xml	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/res/mipmap-anydpi-v26/action_round.xml	(date 1732916460997)
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@color/action_background"/>
++    <background android:drawable="@drawable/action_background"/>
+     <foreground android:drawable="@drawable/action_foreground"/>
+ </adaptive-icon>
+\ No newline at end of file
+Index: app/src/main/res/mipmap-anydpi-v26/action.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <background android:drawable=\"@color/action_background\"/>\r\n    <foreground android:drawable=\"@drawable/action_foreground\"/>\r\n</adaptive-icon>
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/action.xml b/app/src/main/res/mipmap-anydpi-v26/action.xml
+--- a/app/src/main/res/mipmap-anydpi-v26/action.xml	(revision d9f5aded818d51114816ffa1bbf8b406605acd75)
++++ b/app/src/main/res/mipmap-anydpi-v26/action.xml	(date 1732916249726)
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@color/action_background"/>
++    <background android:drawable="@drawable/action_background"/>
+     <foreground android:drawable="@drawable/action_foreground"/>
+ </adaptive-icon>
+\ No newline at end of file
