@@ -18,6 +18,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
-rootProject.name = "B07 Demo Summer 2024"
+rootProject.name = "Plantze"
 include(":app")
+ 
