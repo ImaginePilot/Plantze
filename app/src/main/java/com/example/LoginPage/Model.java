@@ -10,6 +10,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class Model {
@@ -38,7 +43,7 @@ public class Model {
                         if (task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
                             if(user.isEmailVerified())
-                                Presenter.loginSucessful(email);
+                                Presenter.loginSucessful(auth.getCurrentUser().getUid());
                             else
                                 Presenter.EmailNotVerified();
 
@@ -51,6 +56,28 @@ public class Model {
                     }
                 });
 
+    }
+
+    public void GlobalEmissionsData(String Uid){
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userNameRef = rootRef.child(Uid);
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    Presenter.DataDosentExist(Uid);
+                }
+                else{
+                    Presenter.DataExists(Uid);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, databaseError.getMessage()); //Don't ignore errors!
+            }
+        };
+        userNameRef.addListenerForSingleValueEvent(eventListener);
     }
 
 

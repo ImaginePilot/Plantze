@@ -51,8 +51,14 @@ public class MainActivityPresenter {
         else
             register.MakeToast("Passwords dont Match");
     }
-    public void loginSucessful(String Email){
-        login.NextActivity(Email);
+    public void loginSucessful(String Uid){
+        model.GlobalEmissionsData(Uid);
+    }
+    public void DataDosentExist(String Uid){
+        login.NextActivity(Uid);
+    }
+    public void DataExists(String Uid){
+        login.NextActivity1(Uid);
     }
     public void loginNotSucessful(){
         login.DisplayMessage("Sign in not sucessful");

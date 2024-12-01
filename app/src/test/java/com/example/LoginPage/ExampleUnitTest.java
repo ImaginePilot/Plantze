@@ -95,8 +95,8 @@ public class ExampleUnitTest {
     @Test
     public void testlloginSucessful(){
         MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
-        presenter.loginSucessful("rohitmutyala920@gmail.com");
-        verify(login).NextActivity("rohitmutyala920@gmail.com");
+        presenter.loginSucessful("ABCD");
+        verify(model).GlobalEmissionsData("ABCD");
     }
     @Test
     public void testloginNotSucessful(){
@@ -110,5 +110,16 @@ public class ExampleUnitTest {
         presenter.EmailNotVerified();
         verify(login).DisplayMessage("Please verify email");
     }
-
+    @Test
+    public void testDataDosentExist(){
+        MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
+        presenter.DataDosentExist("ABCD");
+        verify(login).NextActivity("ABCD");
+    }
+    @Test
+    public void testDataExists(){
+        MainActivityPresenter presenter = new MainActivityPresenter(login,registration,model);
+        presenter.DataExists("ABCD");
+        verify(login).NextActivity1("ABCD");
+    }
 }

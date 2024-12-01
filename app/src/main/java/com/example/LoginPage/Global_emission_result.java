@@ -94,9 +94,9 @@ public class Global_emission_result extends AppCompatActivity {
             TotalComparision.setText(User_Data.getMessage());
 
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference().child("AnnualEmissionsData");
+            DatabaseReference ref = database.getReference().child(User_Data.Uid);
             FirebaseUserData Data = new FirebaseUserData(User_Data.Transportation,User_Data.Food,User_Data.Housing,User_Data.Consumption);
-            ref.child(User_Data.Email).setValue(Data);
+            ref.child("AnnualEmissionsData").setValue(Data);
 
 
             return insets;

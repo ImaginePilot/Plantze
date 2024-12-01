@@ -76,10 +76,15 @@ public class Login extends AppCompatActivity implements MainActivityContract.Log
         message.setText(Message);
     }
 
-    public void NextActivity(String Email){
+    public void NextActivity(String Uid){
 
         Intent fp=new Intent(getApplicationContext(),GetLocation.class);
-        fp.putExtra("Email",Email);
+        fp.putExtra("Uid",Uid);
+        startActivity(fp);
+    }
+    public void NextActivity1(String Uid){
+        Intent fp=new Intent(getApplicationContext(),AnnualEmissionsMessage.class);
+        fp.putExtra("Uid",Uid);
         startActivity(fp);
     }
 }
