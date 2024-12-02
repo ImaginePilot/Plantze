@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 
 
-public class annualConsumption extends AppCompatActivity {
+public class annualConsumption extends AppCompatActivity implements View.OnClickListener{
 
     private Button[] answers = new Button[6]; //buttons for answers
     private Button Next; //Next button

@@ -79,12 +79,12 @@ public class Login extends AppCompatActivity implements MainActivityContract.Log
 
     public void NextActivity(String Uid){
 
-        Intent fp=new Intent(getApplicationContext(),GetLocation.class);
+        Intent fp=new Intent(getApplicationContext(),AnnualEmissionsMessage.class);
         fp.putExtra("Uid",Uid);
         startActivity(fp);
     }
     public void NextActivity1(String Uid){
-        Intent fp=new Intent(getApplicationContext(),AnnualEmissionsMessage.class);
+        Intent fp=new Intent(getApplicationContext(),MainActivity.class);
         fp.putExtra("Uid",Uid);
         startActivity(fp);
     }

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.Plantze.app.Global_emission_result">
+    tools:context="com.plantze.app.Global_emission_result">
     <TextView
         android:id="@+id/Transportation"
         android:layout_width="wrap_content"
