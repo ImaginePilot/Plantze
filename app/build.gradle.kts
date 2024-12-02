@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    implementation(libs.firebase.auth)
     testImplementation ("org.mockito:mockito-core:3.+")
     implementation("org.apache.poi:poi:5.2.5")
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
@@ -42,7 +43,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
 
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
