@@ -1,4 +1,4 @@
-package com.Plantze.app;
+package com.plantze.app;
 
 import static java.lang.Double.parseDouble;
 

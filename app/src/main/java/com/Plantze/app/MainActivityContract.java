@@ -1,4 +1,4 @@
-package com.Plantze.app;
+package com.plantze.app;
 
 public interface MainActivityContract {
     interface Login{
