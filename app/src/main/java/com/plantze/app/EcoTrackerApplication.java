@@ -7,7 +7,7 @@ import com.google.firebase.FirebaseApp;
 
 public class EcoTrackerApplication extends Application {
     private StoredData storedData;
-    public String id="1";
+    public String id;
     @Override
     public void onCreate(){
         super.onCreate();
