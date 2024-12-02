@@ -46,7 +46,7 @@ public class GetLocation extends AppCompatActivity {
             CountryList = (android.widget.Spinner)findViewById(R.id.spinner);
             Next = (android.widget.Button)findViewById(R.id.gc);
 
-            String Uid = getIntent().getStringExtra("Uid");
+            String Uid = EcoTrackerApplication.getInstance(this).id;
             Data.Uid = Uid;
 
             // Reading the countries and emissions for the excel file we were given

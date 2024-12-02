@@ -33,9 +33,9 @@ public class AnnualEmissionsMessage extends AppCompatActivity {
             Next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String Uid = getIntent().getStringExtra("Uid");
+
                     Intent fp=new Intent(getApplicationContext(),GetLocation.class);
-                    fp.putExtra("Uid",Uid);
+
                     startActivity(fp);
                 }
             });

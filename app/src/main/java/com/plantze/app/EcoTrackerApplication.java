@@ -7,16 +7,23 @@ import com.google.firebase.FirebaseApp;
 
 public class EcoTrackerApplication extends Application {
     private StoredData storedData;
-    private String id="1";
+    public String id="1";
     @Override
     public void onCreate(){
         super.onCreate();
         FirebaseApp.initializeApp(this);
-        storedData=new StoredData(id);
 
     }
     public StoredData getStoredData(){
         return storedData;
+    }
+    public void createStoredData(String newUID){
+
+        this.id=newUID;
+        storedData=new StoredData(newUID);
+    }
+    public void changeStoredData(String newUID){
+        this.storedData=new StoredData(newUID);
     }
     public void setStoredData(String sid) {
         storedData = new StoredData(sid);
