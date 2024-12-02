@@ -1,5 +1,6 @@
 package com.plantze.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,12 +29,12 @@ public class HomeMenu extends AppCompatActivity {
         annualCarbonButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(HomeMenu.this, );
-                //startActivity(intent);
+                Intent intent = new Intent(HomeMenu.this,AnnualEmissionsMessage.class );
+                startActivity(intent);
             }
         });
 
-        ecoTrackerButton.setOnClickListener(new View.OnClickListener(){
+        /*ecoTrackerButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 //Intent intent = new Intent(HomeMenu.this, );
@@ -47,6 +48,6 @@ public class HomeMenu extends AppCompatActivity {
                 //Intent intent = new Intent(HomeMenu.this, );
                 //startActivity(intent);
             }
-        });
+        });*/
     }
 }

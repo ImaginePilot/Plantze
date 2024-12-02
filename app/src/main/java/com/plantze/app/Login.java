@@ -84,7 +84,7 @@ public class Login extends AppCompatActivity implements MainActivityContract.Log
         startActivity(fp);
     }
     public void NextActivity1(String Uid){
-        Intent fp=new Intent(getApplicationContext(),MainActivity.class);
+        Intent fp=new Intent(getApplicationContext(),HomeMenu.class);
         fp.putExtra("Uid",Uid);
         startActivity(fp);
     }
