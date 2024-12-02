@@ -81,7 +81,7 @@ public class Login extends AppCompatActivity implements MainActivityContract.Log
 
         Intent fp=new Intent(getApplicationContext(),AnnualEmissionsMessage.class);
         fp.putExtra("Uid",Uid);
-        EcoTrackerApplication.getInstance(this).changeStoredData(Uid);
+        EcoTrackerApplication.getInstance(this).createStoredData(Uid);
         startActivity(fp);
     }
     public void NextActivity1(String Uid){
