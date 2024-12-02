@@ -12,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.plantze.app.R;
 
 public class AnnualEmissionsMessage extends AppCompatActivity {
@@ -26,6 +28,13 @@ public class AnnualEmissionsMessage extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+
+            UserData User_Data= new UserData();
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference().child(User_Data.Uid);
+            FirebaseUserData Data = new FirebaseUserData(User_Data.Transportation,User_Data.Food,User_Data.Housing,User_Data.Consumption);
+            ref.child("AnnualEmissionsData").setValue(Data);
 
             Message = findViewById(R.id.Message);
             Next = findViewById(R.id.Next);
