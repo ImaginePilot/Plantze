@@ -1,10 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.Plantze.app.annualConsumption">
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="Question 1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="193dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_below="@+id/question"
+        android:id="@+id/answers">
+
+        <Button
+            android:id="@+id/choice_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ans_A"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@color/cardview_dark_background"/>
+        <Button
+            android:id="@+id/choice_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ans_B"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@color/cardview_dark_background"/>
+        <Button
+            android:id="@+id/choice_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ans_C"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@color/cardview_dark_background"/>
+        <Button
+            android:id="@+id/choice_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ans_D"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@color/cardview_dark_background"/>
+        <Button
+            android:id="@+id/choice_e"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ans_E"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@color/cardview_dark_background"/>
+        <Button
+            android:id="@+id/choice_f"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ans_F"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@color/cardview_dark_background"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answers"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="20dp"
+        android:text="Next" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/next"
+        android:background="@color/light_grey"/>
+
+</RelativeLayout>
