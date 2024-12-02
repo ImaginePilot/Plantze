@@ -18,7 +18,7 @@ import com.plantze.app.R;
 public class Registration extends AppCompatActivity implements MainActivityContract.Register {
 
     MainActivityPresenter presenter;
-    private Button Register, Login;
+    private Button Register;
     private EditText Name;
     private EditText Email_RP;
     private EditText Password_RP, ConfirmPassword;
@@ -47,14 +47,7 @@ public class Registration extends AppCompatActivity implements MainActivityContr
                     presenter.signup();
                 }
             });
-            Login = findViewById(R.id.Login);
-            Login.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent fp=new Intent(getApplicationContext(),Login.class);
-                    startActivity(fp);
-                }
-            });
+
 
             return insets;
         });
