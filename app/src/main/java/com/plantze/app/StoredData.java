@@ -275,4 +275,61 @@ public class StoredData implements Serializable {
             });
         });
     }
+    private String getDateFromOffset(String startDate, int offset) {
+        ArrayList<Integer> date = decode_date(startDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.get(0), date.get(1) - 1, date.get(2)); // Set date from string
+        calendar.add(Calendar.DATE, offset);
+        return encode_date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+    private int getDaysInMonth(int year, int month) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, 1); // Set to first day of month
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+    public float getCO2ForDayByCategory(String date, String category) {
+        float CO2 = 0;
+        Log.d("Category", "Date: " + date + " Category: " + category);
+        Log.d("Category", "Activities: " + activities.toString());
+        Log.d("Category", s_data.toString());
+        for (AbstractActivities a : activities) {
+            Log.d("Category", a.toString());
+            if (encode_date(a.year, a.month, a.day).equals(date)) {
+                Log.d("Category", a.getClass().toString());
+                if (a.getClass().toString().equals(category)) {
+                    Log.d("Category", "Found");
+                    CO2 += a.calculateCO2(); // CO2 for that activity
+                }
+            }
+        }
+        return CO2;
+    }
+
+    public float getCO2ForWeekByCategory(String startDate, String category) {
+        float totalCO2 = 0;
+        for (int i = 0; i < 7; i++) {
+            String date = getDateFromOffset(startDate, i); // Get each date in the week
+            totalCO2 += getCO2ForDayByCategory(date, category); // Sum emissions for that category
+        }
+        return totalCO2;
+    }
+
+    public float getCO2ForMonthByCategory(int year, int month, String category) {
+        float totalCO2 = 0;
+        for (int day = 1; day <= getDaysInMonth(year, month); day++) {
+            String date = encode_date(year, month, day); // Get each day of the month
+            totalCO2 += getCO2ForDayByCategory(date, category); // Sum emissions for that category
+        }
+        return totalCO2;
+    }
+
+    public float getCO2ForYearByCategory(int year, String category) {
+        float totalCO2 = 0;
+        for (int month = 1; month <= 12; month++) {
+            totalCO2 += getCO2ForMonthByCategory(year, month, category); // Sum monthly CO2 for category
+        }
+        return totalCO2;
+    }
 }
+
+
