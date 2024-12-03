@@ -229,6 +229,7 @@ public class StoredData implements Serializable {
         return year+"-"+s_month+"-"+s_day;
     }
     public void create_activities() {
+        this.activities.clear();
         s_data.forEach((key, value) -> {
             value.forEach(item -> {
                 String s = item.get(0);

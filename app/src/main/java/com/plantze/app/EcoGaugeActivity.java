@@ -22,6 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EcoGaugeActivity extends AppCompatActivity {
     private PieChart pieChart;
@@ -52,7 +55,19 @@ public class EcoGaugeActivity extends AppCompatActivity {
             startActivity(intent);
         });
         lineChartButton.setOnClickListener(v->{
-
+            StoredData s = EcoTrackerApplication.getInstance(this).getStoredData();
+            s.create_activities();
+            List<Float> monthlyData=new ArrayList<>(Arrays.asList((float)0,(float)0,(float)0,(float)0,(float)0,(float)0,(float)0,(float)0,(float)0,(float)0,(float)0,(float)0));
+            for(AbstractActivities a:s.activities){
+                if(a.year==s.decode_date(globalDate).get(0)){
+                    monthlyData.set(a.month-1, (float) (monthlyData.get(a.month-1)+a.calculateCO2()));
+                }
+            }
+            Intent intent=new Intent(this, LineChart.class);
+            for(int i=0;i<12;i++){
+                intent.putExtra(Integer.toString(i+1),Float.toString(monthlyData.get(i)));
+            }
+            startActivity(intent);
         });
 
 
