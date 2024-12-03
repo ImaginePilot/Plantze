@@ -1,5 +1,7 @@
 package com.plantze.app;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,6 +75,16 @@ public class EcoTrackerActivity extends AppCompatActivity{
             intent.putExtra("date",selectedDate);
             startActivity(intent);
         });
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Your custom back button logic here
+
+                Intent intent = new Intent(EcoTrackerActivity.this,HomeMenu.class);
+                startActivity(intent);
+            }
+        });
+
 
         recyclerView=findViewById(R.id.recyclerViewIndividualActivities);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -98,6 +111,7 @@ public class EcoTrackerActivity extends AppCompatActivity{
         d.upload_to_database();
 
     }
+
 
 
 }

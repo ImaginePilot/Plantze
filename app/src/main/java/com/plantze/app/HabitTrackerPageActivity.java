@@ -1,5 +1,6 @@
 package com.plantze.app;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -100,7 +102,16 @@ public class HabitTrackerPageActivity extends AppCompatActivity {
                 refreshRecyclerView();
             }
         });
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Your custom back button logic here
 
+                Intent intent = new Intent(HabitTrackerPageActivity.this,EcoTrackerActivity.class);
+                intent.putExtra("date",date);
+                startActivity(intent);
+            }
+        });
 
     }
     public static Map<String, Boolean> checkSubstrings(String text, List<String> substrings) {
