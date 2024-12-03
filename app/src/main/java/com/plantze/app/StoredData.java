@@ -289,11 +289,11 @@ public class StoredData implements Serializable {
     }
     public float getCO2ForDayByCategory(String date, String category) {
         float CO2 = 0;
-        Log.d("Category", "Date: " + date + " Category: " + category);
-        Log.d("Category", "Activities: " + activities.toString());
-        Log.d("Category", s_data.toString());
+        //Log.d("Category", "Date: " + date + " Category: " + category);
+        //Log.d("Category", "Activities: " + activities.toString());
+        //Log.d("Category", s_data.toString());
         for (AbstractActivities a : activities) {
-            Log.d("Category", a.toString());
+            //Log.d("Category", a.toString());
             if (encode_date(a.year, a.month, a.day).equals(date)) {
                 Log.d("Category", a.getClass().toString());
                 if (a.getClass().toString().equals(category)) {

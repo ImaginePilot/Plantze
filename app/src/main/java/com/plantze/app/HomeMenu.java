@@ -42,12 +42,12 @@ public class HomeMenu extends AppCompatActivity {
 
         });
 
-        /*ecoGuageButton.setOnClickListener(new View.OnClickListener(){
+        ecoGuageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //Intent intent = new Intent(HomeMenu.this, );
-                //startActivity(intent);
+                Intent intent = new Intent(HomeMenu.this, EcoGaugeActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
     }
 }

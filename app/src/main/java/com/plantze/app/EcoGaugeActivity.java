@@ -1,10 +1,12 @@
 package com.plantze.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,6 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DataSnapshot;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class EcoGaugeActivity extends AppCompatActivity {
     private PieChart pieChart;
     private PieChartHelper pieChartHelper;
@@ -26,6 +31,8 @@ public class EcoGaugeActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    private Button calendarButton;
+    private Button lineChartButton;
     private String globalDate;
 
     @Override
@@ -33,6 +40,21 @@ public class EcoGaugeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eco_gauge);
         globalDate = getIntent().getStringExtra("date");
+        calendarButton=findViewById(R.id.calendarButton);
+        lineChartButton=findViewById(R.id.lineChartButton);
+        if(globalDate==null) {
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            globalDate = currentDate.format(formatter);
+        }
+        calendarButton.setOnClickListener(v->{
+            Intent intent=new Intent(this,GaugeCalendarActivity.class);
+            startActivity(intent);
+        });
+        lineChartButton.setOnClickListener(v->{
+
+        });
+
 
         // Initializing Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
