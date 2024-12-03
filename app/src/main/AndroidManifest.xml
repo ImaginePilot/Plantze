@@ -61,6 +61,9 @@
             android:name=".HabitTrackerPageActivity"
             android:exported="false" />
         <activity
+            android:name=".LineChart"
+            android:exported="false" />
+        <activity
             android:name="com.plantze.app.StartPage"
             android:exported="true" >
         <intent-filter>
