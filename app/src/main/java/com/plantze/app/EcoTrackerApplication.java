@@ -23,6 +23,7 @@ public class EcoTrackerApplication extends Application {
         storedData=new StoredData(newUID);
     }
     public void changeStoredData(String newUID){
+        this.id=newUID;
         this.storedData=new StoredData(newUID);
     }
     public void setStoredData(String sid) {

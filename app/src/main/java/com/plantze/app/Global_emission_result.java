@@ -2,8 +2,11 @@ package com.plantze.app;
 
 import static java.lang.Double.parseDouble;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -32,6 +35,7 @@ public class Global_emission_result extends AppCompatActivity {
     TextView housing,renewable; //Variables related to housing
     TextView consumption,clothes,secondhand,electronics,recycle; //V
     TextView TotalComparision;
+    Button HomePage;
     UserData User_Data = new UserData();
 
     @Override
@@ -70,6 +74,8 @@ public class Global_emission_result extends AppCompatActivity {
             TotalComparision = findViewById(R.id.TotalComparision);
 
 
+            HomePage = findViewById(R.id.HomePage);
+
             transport.setText("Emissions from transportation breakdown: "+User_Data.Transportation);
             publicT.setText("Emissions from car: "+User_Data.personal_vehicle);
             privateT.setText("Emissions from Public transport"+User_Data.public_Transportation);
@@ -91,6 +97,8 @@ public class Global_emission_result extends AppCompatActivity {
             electronics.setText("Emissions by electronics: "+User_Data.Electronics);
             recycle.setText("Emissions reduction by recycle: "+User_Data.Consumption1);
 
+
+
             TotalComparision.setText(User_Data.getMessage());
 
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -99,6 +107,14 @@ public class Global_emission_result extends AppCompatActivity {
             ref.child("AnnualEmissionsData").setValue(Data);
 
 
+            HomePage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Global_emission_result.this, HomeMenu.class);
+                    intent.putExtra("Data", User_Data);
+                    startActivity(intent);
+                }
+            });
             return insets;
         });
     }

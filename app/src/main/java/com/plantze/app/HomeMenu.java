@@ -26,20 +26,17 @@ public class HomeMenu extends AppCompatActivity {
         ecoHubButton = findViewById(R.id.ecoHubButton);
         ecoAgentButton = findViewById(R.id.ecoAgentButton);
 
-        annualCarbonButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        annualCarbonButton.setOnClickListener(v->{
+
                 Intent intent = new Intent(HomeMenu.this,AnnualEmissionsMessage.class );
                 startActivity(intent);
-            }
+
         });
 
-        ecoTrackerButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
+        ecoTrackerButton.setOnClickListener(v->{
                 Intent intent = new Intent(HomeMenu.this,EcoTrackerActivity.class);
                 startActivity(intent);
-            }
+
         });
 
         /*ecoGuageButton.setOnClickListener(new View.OnClickListener(){
